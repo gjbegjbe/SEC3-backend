@@ -8,13 +8,11 @@ import com.example.backend.Repository.NodeRepository;
 import com.example.backend.Service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -62,6 +60,14 @@ public class MyCoinController {
         linkRepository.delete(resLink);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/getCoin")
+    public ResponseEntity<Map<String, List>> getCoin() {
+        Map<String, List> response = new HashMap<>();
+        response.put("node", nodeRepository.findAll());
+        response.put("relationship", linkRepository.findAll());
         return ResponseEntity.ok().body(response);
     }
 }

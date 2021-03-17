@@ -40,6 +40,12 @@ public class MyCoinController {
         Node resNode = nodeRepository.findById(node.getUuid())
                 .orElseThrow(() -> new ResourceNotFoundException("Node not found for this id : " + node.getUuid()));
         nodeRepository.delete(resNode);
+
+        List<Link> links1 = linkRepository.findBySourceid((int) node.getUuid());
+        linkRepository.deleteAll(links1);
+        List<Link> links2 = linkRepository.findByTargetid((int) node.getUuid());
+        linkRepository.deleteAll(links2);
+
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok().body(response);

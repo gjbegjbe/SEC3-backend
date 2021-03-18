@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface LinkRepository extends MongoRepository<Link, Long> {
-    public List<Link> findBySourceid(int sourceid);
+    public List<Link> findBySourceid(long sourceid);
 
-    public List<Link> findByTargetid(int targetid);
+    public List<Link> findByTargetid(long targetid);
 }

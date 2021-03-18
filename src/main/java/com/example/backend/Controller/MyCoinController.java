@@ -29,7 +29,7 @@ public class MyCoinController {
     @PostMapping("/deleteNode")
     public ResponseEntity<Map<String, Boolean>> deleteNode(@Valid @RequestBody Node node) throws ResourceNotFoundException {
         myCoinService.deleteNodeById(node.getUuid());
-        myCoinService.deleteRelationByNodeId((int) node.getUuid());
+        myCoinService.deleteRelationByNodeId(node.getUuid());
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok().body(response);

@@ -34,7 +34,7 @@ public interface IMyCoinService {
      * @param nodeId
      * @return
      */
-    void deleteRelationByNodeId(int nodeId);
+    void deleteRelationByNodeId(long nodeId);
 
     /**
      * @return

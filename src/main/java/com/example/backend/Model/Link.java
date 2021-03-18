@@ -13,8 +13,8 @@ public class Link {
     @Transient
     public static final String SEQUENCE_NAME = "nodes_sequence";
 
-    private int sourceid;
-    private int targetid;
+    private long sourceid;
+    private long targetid;
 
     @NotBlank
     @Size(max = 100)
@@ -28,26 +28,26 @@ public class Link {
 
     }
 
-    public Link(int sourceid, int targetid, @NotBlank @Size(max = 100) String name, long uuid) {
+    public Link(long sourceid, long targetid, @NotBlank @Size(max = 100) String name, long uuid) {
         this.sourceid = sourceid;
         this.targetid = targetid;
         this.name = name;
         this.uuid = uuid;
     }
 
-    public int getSourceid() {
+    public long getSourceid() {
         return sourceid;
     }
 
-    public void setSourceid(int sourceid) {
+    public void setSourceid(long sourceid) {
         this.sourceid = sourceid;
     }
 
-    public int getTargetid() {
+    public long getTargetid() {
         return targetid;
     }
 
-    public void setTargetid(int targetid) {
+    public void setTargetid(long targetid) {
         this.targetid = targetid;
     }
 

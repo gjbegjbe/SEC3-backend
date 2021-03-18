@@ -69,7 +69,7 @@ public class MyCoinService implements IMyCoinService {
     }
 
     @Override
-    public void deleteRelationByNodeId(int nodeId) {
+    public void deleteRelationByNodeId(long nodeId) {
         List<Link> links1 = linkRepository.findBySourceid(nodeId);
         linkRepository.deleteAll(links1);
         List<Link> links2 = linkRepository.findByTargetid(nodeId);

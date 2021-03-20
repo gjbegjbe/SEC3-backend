@@ -1,5 +1,6 @@
 package com.example.backend.Service;
 
+import com.example.backend.Model.KG;
 import com.example.backend.Model.Link;
 import com.example.backend.Model.Node;
 
@@ -40,4 +41,10 @@ public interface IMyCoinService {
      * @return
      */
     HashMap<String, Object> getCoin();
+
+
+    /**
+     * @param kg
+     */
+    void updateCoin(KG kg);
 }

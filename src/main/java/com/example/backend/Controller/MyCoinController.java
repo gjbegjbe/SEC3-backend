@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Exception.ResourceNotFoundException;
+import com.example.backend.Model.KG;
 import com.example.backend.Model.Link;
 import com.example.backend.Model.Node;
 import com.example.backend.Service.IMyCoinService;
@@ -54,6 +55,14 @@ public class MyCoinController {
     @GetMapping("/getCoin")
     public ResponseEntity<Map<String, Object>> getCoin() {
         Map<String, Object> response = myCoinService.getCoin();
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/updateCoin")
+    public ResponseEntity<Map<String, Boolean>> updateCoin(@Valid @RequestBody KG kg) {
+        myCoinService.updateCoin(kg);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("updated", Boolean.TRUE);
         return ResponseEntity.ok().body(response);
     }
 }

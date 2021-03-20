@@ -1,6 +1,7 @@
 package com.example.backend.Service.Impl;
 
 import com.example.backend.Exception.ResourceNotFoundException;
+import com.example.backend.Model.KG;
 import com.example.backend.Model.Link;
 import com.example.backend.Model.Node;
 import com.example.backend.Repository.LinkRepository;
@@ -82,5 +83,13 @@ public class MyCoinService implements IMyCoinService {
         coin.put("node", nodeRepository.findAll());
         coin.put("relationship", linkRepository.findAll());
         return coin;
+    }
+
+    @Override
+    public void updateCoin(KG kg) {
+        nodeRepository.deleteAll();
+        nodeRepository.saveAll(kg.getNode());
+        linkRepository.deleteAll();
+        linkRepository.saveAll(kg.getRelationship());
     }
 }

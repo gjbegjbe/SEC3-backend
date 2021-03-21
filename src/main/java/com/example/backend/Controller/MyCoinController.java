@@ -15,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/")
+@CrossOrigin
 public class MyCoinController {
     @Autowired
     private IMyCoinService myCoinService;

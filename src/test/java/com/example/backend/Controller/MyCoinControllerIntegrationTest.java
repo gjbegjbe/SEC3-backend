@@ -55,7 +55,7 @@ public class MyCoinControllerIntegrationTest {
         node.setUuid(10001);
         node.setImgsrc("n1");
 
-        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/addNode", node, Map.class);
+        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/addNode", node, Map.class);
         Map<String, Boolean> m = postResponse.getBody();
 
         assert m != null;
@@ -69,7 +69,7 @@ public class MyCoinControllerIntegrationTest {
         node.setUuid(10001);
         node.setImgsrc("n1");
 
-        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/deleteNode", node, Map.class);
+        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/deleteNode", node, Map.class);
         Map<String, Boolean> m = postResponse.getBody();
 
         assert m != null;
@@ -80,7 +80,7 @@ public class MyCoinControllerIntegrationTest {
     public void addRelation() {
         Link link = new Link(10001, 10002, "r1", 20001);
 
-        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/addRelation", link, Map.class);
+        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/addRelation", link, Map.class);
         Map<String, Boolean> m = postResponse.getBody();
 
         assert m != null;
@@ -91,7 +91,7 @@ public class MyCoinControllerIntegrationTest {
     public void deleteRelation() {
         Link link = new Link(10001, 10002, "r1", 20001);
 
-        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/deleteRelation", link, Map.class);
+        ResponseEntity<Map> postResponse = restTemplate.postForEntity(getRootUrl() + "/api/deleteRelation", link, Map.class);
         Map<String, Boolean> m = postResponse.getBody();
 
         assert m != null;
@@ -103,7 +103,7 @@ public class MyCoinControllerIntegrationTest {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
-        ResponseEntity<Map> response = restTemplate.exchange(getRootUrl() + "/getCoin",
+        ResponseEntity<Map> response = restTemplate.exchange(getRootUrl() + "/api/getCoin",
                 HttpMethod.GET, entity, Map.class);
 
         assertNotNull(response.getBody());

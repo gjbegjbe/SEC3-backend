@@ -1,0 +1,35 @@
+package com.example.backend.Controller;
+
+import com.example.backend.Model.Graph;
+import com.example.backend.Service.Impl.GraphService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api")
+@CrossOrigin
+public class GraphController {
+
+    @Autowired
+    private GraphService graphService;
+
+    @GetMapping("/getGraph")
+    public ResponseEntity<Graph> getLatestGraph() {
+        Graph graph = graphService.getLatestGraph();
+        Map<String, Boolean> response = new HashMap<>();
+        return ResponseEntity.ok().body(graph);
+    }
+
+    @PostMapping("/addGraph")
+    public ResponseEntity<Map<String, Boolean>> addGraph(@Valid @RequestBody Graph graph) {
+        graphService.addGraph(graph);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("added", Boolean.TRUE);
+        return ResponseEntity.ok().body(response);
+    }
+}

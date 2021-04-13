@@ -21,7 +21,6 @@ public class GraphController {
     @GetMapping("/getGraph")
     public ResponseEntity<Graph> getLatestGraph() {
         Graph graph = graphService.getLatestGraph();
-        Map<String, Boolean> response = new HashMap<>();
         return ResponseEntity.ok().body(graph);
     }
 

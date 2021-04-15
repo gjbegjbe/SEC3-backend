@@ -16,13 +16,20 @@ public class GraphService implements IGraphService {
     private SequenceGeneratorService sequenceGeneratorService;
 
     @Override
-    public void addGraph(Graph graph) {
-        graph.setId(sequenceGeneratorService.generateSequence(Graph.SEQUENCE_NAME));
+    public long addGraph(Graph graph) {
+        long id = sequenceGeneratorService.generateSequence(Graph.SEQUENCE_NAME);
+        graph.setId(id);
         graphRepository.save(graph);
+        return id;
     }
 
     @Override
     public Graph getLatestGraph() {
         return graphRepository.findTopByOrderByIdDesc();
+    }
+
+    @Override
+    public void deleteGraphById(long id) {
+        graphRepository.deleteById(id);
     }
 }

@@ -7,10 +7,15 @@ public interface IGraphService {
     /**
      * @param graph
      */
-    void addGraph(Graph graph);
+    long addGraph(Graph graph);
 
     /**
      * @return
      */
     Graph getLatestGraph();
+
+    /**
+     * @param id
+     */
+    void deleteGraphById(long id);
 }

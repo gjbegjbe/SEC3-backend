@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GraphRepository extends MongoRepository<Graph, Long> {
 
-    public Graph findTopByOrderByIdDesc();
+    Graph findTopByOrderByIdDesc();
 
-    public void deleteById();
+    void deleteById(long id);
 }

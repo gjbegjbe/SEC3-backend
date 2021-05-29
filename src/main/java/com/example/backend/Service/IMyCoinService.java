@@ -1,8 +1,6 @@
 package com.example.backend.Service;
 
-import com.example.backend.Model.KG;
-import com.example.backend.Model.Link;
-import com.example.backend.Model.Node;
+import com.example.backend.Model.*;
 
 import java.util.HashMap;
 
@@ -36,6 +34,30 @@ public interface IMyCoinService {
      * @return
      */
     void deleteRelationByNodeId(long nodeId);
+
+    /**
+     * @param group
+     * @return
+     */
+    long addGroup(Group group);
+
+    /**
+     * @param gruopId
+     * @return
+     */
+    boolean deleteGroupById(long gruopId);
+
+    /**
+     * @param brand
+     * @return
+     */
+    long addBrand(Brand brand);
+
+    /**
+     * @param brandId
+     * @return
+     */
+    boolean deleteBrandById(long brandId);
 
     /**
      * @return

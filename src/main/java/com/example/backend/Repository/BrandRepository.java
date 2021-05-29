@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BrandRepository extends MongoRepository<Brand, Long> {
-    Brand findById(long id);
+
+    void deleteByGid(Long gid);
 }

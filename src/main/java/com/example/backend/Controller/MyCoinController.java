@@ -1,9 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Exception.ResourceNotFoundException;
-import com.example.backend.Model.KG;
-import com.example.backend.Model.Link;
-import com.example.backend.Model.Node;
+import com.example.backend.Model.*;
 import com.example.backend.Service.IMyCoinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +48,44 @@ public class MyCoinController {
         myCoinService.deleteRelationById(link.getUuid());
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/addGroup")
+    public ResponseEntity<Map<String, Object>> addGroup(@Valid @RequestBody Group group) {
+        long id = myCoinService.addGroup(group);
+        String uuid = "group" + id;
+        Map<String, Object> response = new HashMap<>();
+        response.put("uuid", uuid);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/deleteGroupByUuid")
+    public ResponseEntity<Map<String, Boolean>> deleteGroupByUuid(@Valid @RequestBody Map<String, Object> body) {
+        String uuid = (String) body.get("uuid");
+        long id = Long.parseLong(uuid.substring(5));
+        boolean res = myCoinService.deleteGroupById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", res);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/addBrand")
+    public ResponseEntity<Map<String, Object>> addBrand(@Valid @RequestBody Brand brand) {
+        long id = myCoinService.addBrand(brand);
+        String uuid = "brand" + id;
+        Map<String, Object> response = new HashMap<>();
+        response.put("uuid", uuid);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/deleteBrandByUuid")
+    public ResponseEntity<Map<String, Boolean>> deleteBrandByUuid(@Valid @RequestBody Map<String, Object> body) {
+        String uuid = (String) body.get("uuid");
+        long id = Long.parseLong(uuid.substring(5));
+        boolean res = myCoinService.deleteBrandById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", res);
         return ResponseEntity.ok().body(response);
     }
 

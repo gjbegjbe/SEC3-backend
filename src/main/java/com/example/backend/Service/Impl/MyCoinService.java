@@ -4,6 +4,7 @@ import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Model.*;
 import com.example.backend.Repository.*;
 import com.example.backend.Service.IMyCoinService;
+import com.example.backend.Service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,9 @@ public class MyCoinService implements IMyCoinService {
 
     @Autowired
     private RankRepository rankRepository;
+
+    @Autowired
+    private SequenceGeneratorService sequenceGeneratorService;
 
     @Override
     public boolean addNode(Node node) {
@@ -82,6 +86,49 @@ public class MyCoinService implements IMyCoinService {
         linkRepository.deleteAll(links1);
         List<Link> links2 = linkRepository.findByTargetid(nodeId);
         linkRepository.deleteAll(links2);
+    }
+
+    @Override
+    public long addGroup(Group group) {
+        long res = sequenceGeneratorService.generateSequence(Group.SEQUENCE_NAME);
+        group.setId(res);
+        groupRepository.save(group);
+        return res;
+    }
+
+    @Override
+    public boolean deleteGroupById(long gruopId) {
+        try {
+            Group resGroup = groupRepository.findById(gruopId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Group not found for this id : " + gruopId));
+            groupRepository.delete(resGroup);
+            brandRepository.deleteByGid(gruopId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public long addBrand(Brand brand) {
+        long res = sequenceGeneratorService.generateSequence(Brand.SEQUENCE_NAME);
+        brand.setId(res);
+        brandRepository.save(brand);
+        return res;
+    }
+
+    @Override
+    public boolean deleteBrandById(long brandId) {
+        try {
+            Brand resBrand = brandRepository.findById(brandId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Brand not found for this id : " + brandId));
+            brandRepository.delete(resBrand);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

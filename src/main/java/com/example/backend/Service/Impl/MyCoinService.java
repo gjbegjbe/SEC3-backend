@@ -1,8 +1,12 @@
 package com.example.backend.Service.Impl;
 
 import com.example.backend.Exception.ResourceNotFoundException;
-import com.example.backend.Model.*;
-import com.example.backend.Repository.*;
+import com.example.backend.Model.Brand;
+import com.example.backend.Model.Group;
+import com.example.backend.Model.Rank;
+import com.example.backend.Repository.BrandRepository;
+import com.example.backend.Repository.GroupRepository;
+import com.example.backend.Repository.RankRepository;
 import com.example.backend.Service.IMyCoinService;
 import com.example.backend.Service.SequenceGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +19,6 @@ import java.util.List;
 @Service
 public class MyCoinService implements IMyCoinService {
     @Autowired
-    private NodeRepository nodeRepository;
-
-    @Autowired
-    private LinkRepository linkRepository;
-
-    @Autowired
     private BrandRepository brandRepository;
 
     @Autowired
@@ -31,62 +29,6 @@ public class MyCoinService implements IMyCoinService {
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
-
-    @Override
-    public boolean addNode(Node node) {
-        try {
-            nodeRepository.save(node);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteNodeById(long uuid) {
-        try {
-            Node resNode = nodeRepository.findById(uuid)
-                    .orElseThrow(() -> new ResourceNotFoundException("Node not found for this id : " + uuid));
-            nodeRepository.delete(resNode);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean addRelation(Link link) {
-        try {
-            linkRepository.save(link);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public boolean deleteRelationById(long uuid) {
-        try {
-            Link resLink = linkRepository.findById(uuid)
-                    .orElseThrow(() -> new ResourceNotFoundException("Relation not found for this id : " + uuid));
-            linkRepository.delete(resLink);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public void deleteRelationByNodeId(long nodeId) {
-        List<Link> links1 = linkRepository.findBySourceid(nodeId);
-        linkRepository.deleteAll(links1);
-        List<Link> links2 = linkRepository.findByTargetid(nodeId);
-        linkRepository.deleteAll(links2);
-    }
 
     @Override
     public long addGroup(Group group) {
@@ -185,13 +127,5 @@ public class MyCoinService implements IMyCoinService {
         coin.put("nodes", nodeList);
         coin.put("links", linkList);
         return coin;
-    }
-
-    @Override
-    public void updateCoin(KG kg) {
-        nodeRepository.deleteAll();
-        nodeRepository.saveAll(kg.getNode());
-        linkRepository.deleteAll();
-        linkRepository.saveAll(kg.getRelationship());
     }
 }

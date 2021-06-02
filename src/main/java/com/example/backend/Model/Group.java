@@ -18,10 +18,6 @@ public class Group {
 
     private String introduction;
 
-    private String VIP;
-
-    private String headquarter;
-
     private String platform;
 
     private String homepage;
@@ -52,22 +48,6 @@ public class Group {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
-    }
-
-    public String getVIP() {
-        return VIP;
-    }
-
-    public void setVIP(String VIP) {
-        this.VIP = VIP;
-    }
-
-    public String getHeadquarter() {
-        return headquarter;
-    }
-
-    public void setHeadquarter(String headquarter) {
-        this.headquarter = headquarter;
     }
 
     public String getPlatform() {

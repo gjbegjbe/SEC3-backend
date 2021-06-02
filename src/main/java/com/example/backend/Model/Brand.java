@@ -18,12 +18,6 @@ public class Brand {
 
     private String priority;
 
-    private String discount;
-
-    private String checkout;
-
-    private String breakfast;
-
     private long gid;
 
     private long rid;
@@ -32,12 +26,9 @@ public class Brand {
 
     }
 
-    public Brand(String name, String priority, String discount, String checkout, String breakfast) {
+    public Brand(String name, String priority) {
         this.name = name;
         this.priority = priority;
-        this.discount = discount;
-        this.checkout = checkout;
-        this.breakfast = breakfast;
     }
 
     public long getId() {
@@ -62,30 +53,6 @@ public class Brand {
 
     public void setPriority(String priority) {
         this.priority = priority;
-    }
-
-    public String getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(String discount) {
-        this.discount = discount;
-    }
-
-    public String getCheckout() {
-        return checkout;
-    }
-
-    public void setCheckout(String checkout) {
-        this.checkout = checkout;
-    }
-
-    public String getBreakfast() {
-        return breakfast;
-    }
-
-    public void setBreakfast(String breakfast) {
-        this.breakfast = breakfast;
     }
 
     public long getGid() {

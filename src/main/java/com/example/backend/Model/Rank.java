@@ -16,8 +16,6 @@ public class Rank {
 
     private String name;
 
-    private String scene;
-
     public Rank() {
 
     }
@@ -36,13 +34,5 @@ public class Rank {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getScene() {
-        return scene;
-    }
-
-    public void setScene(String scene) {
-        this.scene = scene;
     }
 }

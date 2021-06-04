@@ -71,4 +71,11 @@ public class MyCoinController {
     public ResponseEntity<List<String>> getGroupNameList() {
         return ResponseEntity.ok().body(groupService.getGroupNameList());
     }
+
+    @PostMapping("/getGraphByGroupName")
+    public ResponseEntity<Map<String, Object>> getGraphByGroupName(@Valid @RequestBody Map<String, Object> body) {
+        String name = (String) body.get("groupName");
+        Map<String, Object> response = groupService.getGraphByGroupName(name);
+        return ResponseEntity.ok().body(response);
+    }
 }

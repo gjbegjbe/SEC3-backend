@@ -42,6 +42,8 @@ public class GroupService implements IGroupService {
         rootNode.put("name", group.getName());
         rootNode.put("uuid", "group" + group.getId());
         rootNode.put("type", "group");
+        rootNode.put("color", "rgb(125,213,255)");
+        rootNode.put("shape", "diamond");
         nodeList.add(rootNode);
 
         for (Brand brand : brandRepository.findAllByGid(group.getId())) {
@@ -49,13 +51,13 @@ public class GroupService implements IGroupService {
             currNode.put("name", brand.getName());
             currNode.put("uuid", "brand" + brand.getId());
             currNode.put("type", "Brand");
-//            currNode.put("color", "rgb(112,211,189)");
-//            currNode.put("shape", "circle");
+            currNode.put("color", "rgb(80," + brand.getRid() * 50 + ",80)");
+            currNode.put("shape", "downtriangle");
             nodeList.add(currNode);
 
             HashMap<String, Object> currLink1 = new HashMap<>();
-            currLink1.put("sourceid", "group" + brand.getGid());
-            currLink1.put("targetid", "brand" + brand.getId());
+            currLink1.put("sourceid", "brand" + brand.getId());
+            currLink1.put("targetid", "group" + brand.getGid());
             currLink1.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
             linkList.add(currLink1);
         }

@@ -3,12 +3,14 @@ package com.example.backend.Controller;
 import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
 import com.example.backend.Service.IMyCoinService;
+import com.example.backend.Service.Impl.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,6 +19,9 @@ import java.util.Map;
 public class MyCoinController {
     @Autowired
     private IMyCoinService myCoinService;
+
+    @Autowired
+    private GroupService groupService;
 
     @PostMapping("/addGroup")
     public ResponseEntity<Map<String, Object>> addGroup(@Valid @RequestBody Group group) {
@@ -60,5 +65,10 @@ public class MyCoinController {
     public ResponseEntity<Map<String, Object>> getCoin() {
         Map<String, Object> response = myCoinService.getCoin();
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/getGroupNameList")
+    public ResponseEntity<List<String>> getGroupNameList() {
+        return ResponseEntity.ok().body(groupService.getGroupNameList());
     }
 }

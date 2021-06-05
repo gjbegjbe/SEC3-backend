@@ -66,4 +66,9 @@ public class GroupService implements IGroupService {
         graph.put("links", linkList);
         return graph;
     }
+
+    @Override
+    public Group getGroupByName(String groupName) {
+        return groupRepository.findByName(groupName);
+    }
 }

@@ -12,4 +12,6 @@ public interface BrandRepository extends MongoRepository<Brand, Long> {
     void deleteByGid(Long gid);
 
     List<Brand> findAllByGid(long gid);
+
+    Brand findByName(String name);
 }

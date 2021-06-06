@@ -9,7 +9,7 @@ public interface IQaService {
      * @param rankName
      * @return
      */
-    String getAnswer(int questionIndex, String groupName, String brandName, String rankName);
+    String getAnswer(int questionIndex, String groupName, String brandName, String rankName, String vipName);
 
     /**
      * @param groupName

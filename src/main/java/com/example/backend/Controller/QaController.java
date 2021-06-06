@@ -22,9 +22,10 @@ public class QaController {
         String groupName = (String) body.get("groupName");
         String brandName = (String) body.get("brandName");
         String rankName = (String) body.get("rankName");
+        String vipName = (String) body.get("vipName");
 
         Map<String, String> response = new HashMap<>();
-        response.put("answer", qaService.getAnswer(questionIndex, groupName, brandName, rankName));
+        response.put("answer", qaService.getAnswer(questionIndex, groupName, brandName, rankName, vipName));
         return ResponseEntity.ok().body(response);
     }
 }

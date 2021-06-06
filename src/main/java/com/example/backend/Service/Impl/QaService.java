@@ -15,7 +15,7 @@ public class QaService implements IQaService {
     BrandService brandService;
 
     @Override
-    public String getAnswer(int questionIndex, String groupName, String brandName, String rankName) {
+    public String getAnswer(int questionIndex, String groupName, String brandName, String rankName, String vipName) {
         if (questionIndex == 1)
             return getGroupIntroAnswer(groupName);
         if (questionIndex == 2)

@@ -58,4 +58,10 @@ public interface IQaService {
      * @return
      */
     String getBrandsByGroupAndRankAnswer(Group group, Rank rank, int maxNum);
+
+    /**
+     * @param brand
+     * @return
+     */
+    String getAppAndPlatByBrandAnswer(Brand brand);
 }

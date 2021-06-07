@@ -49,6 +49,8 @@ public class QaService implements IQaService {
             return getBrandsByRankAnswer(rank);
         if (questionIndex == 7)
             return getBrandsByGroupAndRankAnswer(group, rank, 8);
+        if (questionIndex == 8)
+            return getAppAndPlatByBrandAnswer(brand);
 
 
         return "...";
@@ -175,5 +177,17 @@ public class QaService implements IQaService {
         res.deleteCharAt(res.length() - 1);
         res.append("等。");
         return res.toString();
+    }
+
+    @Override
+    public String getAppAndPlatByBrandAnswer(Brand brand) {
+        if (brand == null)
+            return "没有找到这个酒店的信息。";
+        Group group = groupService.getGroupById(brand.getGid());
+        String res = "";
+        res += brand.getName();
+        res += "可以在";
+        res += group.getPlatform() + "和" + group.getHomepage() + "官网进行预订。";
+        return res;
     }
 }

@@ -58,6 +58,8 @@ public class QaService implements IQaService {
             return getAppAndPlatByBrandAnswer(brand);
         if (questionIndex == 9)
             return getDiscountByBrandAndVipAnswer(brand, vip);
+        if (questionIndex == 10)
+            return getPrivilegeAnswerByBrandAndVipAnswer(brand, vip);
 
 
         return "...";
@@ -216,6 +218,29 @@ public class QaService implements IQaService {
         res += "时享受";
         res += privilege.getDiscount();
         res += "优惠。";
+        return res;
+    }
+
+    @Override
+    public String getPrivilegeAnswerByBrandAndVipAnswer(Brand brand, Vip vip) {
+        if (brand == null)
+            return "没有找到这个酒店的信息。";
+        if (vip == null)
+            return "没有找到这个会员卡的信息。";
+
+        Privilege privilege = privilegeService.getPrivilegeByVidAndBid(vip.getId(), brand.getId());
+        if (privilege == null)
+            return brand.getName() + "不在" + vip.getName() + "的权益范围内。";
+
+        String res = getDiscountByBrandAndVipAnswer(brand, vip);
+        res = res.replace('。', '，');
+        res += "最晚" + privilege.getCheckout() + "退房，";
+        if (privilege.getBreakfast() == 0) {
+            res += "无免费早餐赠送。";
+        } else {
+            res += "赠送" + privilege.getBreakfast() + "份免费早餐。";
+        }
+
         return res;
     }
 }

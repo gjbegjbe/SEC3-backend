@@ -2,8 +2,7 @@ import pickle
 import jieba.posseg as pseg
 import jieba
 #todo load 自定义词库
-question=input("enter your  question:")
-def predict():
+def predict(question):
 
     stopwords1 = [line.rstrip() for line in
                   open('stopwords/stopwords-master/baidu_stopwords.txt', 'r', encoding='utf-8')]
@@ -37,4 +36,3 @@ def predict():
         process_result['question']=pred
         print(process_result)
         return process_result   #返回格式化分词结果
-predict()

@@ -3,6 +3,7 @@ package com.example.backend.Service;
 import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
 import com.example.backend.Model.Rank;
+import com.example.backend.Model.Vip;
 
 public interface IQaService {
 
@@ -64,4 +65,11 @@ public interface IQaService {
      * @return
      */
     String getAppAndPlatByBrandAnswer(Brand brand);
+
+    /**
+     * @param brand
+     * @param vip
+     * @return
+     */
+    String getDiscountByBrandAndVipAnswer(Brand brand, Vip vip);
 }

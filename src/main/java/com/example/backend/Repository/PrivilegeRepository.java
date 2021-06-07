@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface PrivilegeRepository extends MongoRepository<Privilege, Long> {
 
     Privilege findById(long id);
+
+    Privilege findByVidAndBid(long vid, long bid);
 }

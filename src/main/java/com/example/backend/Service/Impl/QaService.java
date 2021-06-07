@@ -1,8 +1,6 @@
 package com.example.backend.Service.Impl;
 
-import com.example.backend.Model.Brand;
-import com.example.backend.Model.Group;
-import com.example.backend.Model.Rank;
+import com.example.backend.Model.*;
 import com.example.backend.Repository.BrandRepository;
 import com.example.backend.Service.IQaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +21,12 @@ public class QaService implements IQaService {
     private RankService rankService;
 
     @Autowired
+    private VipService vipService;
+
+    @Autowired
+    private PrivilegeService privilegeService;
+
+    @Autowired
     private BrandRepository brandRepository;
 
     @Override
@@ -30,6 +34,7 @@ public class QaService implements IQaService {
         Group group = groupService.getGroupByNameContains(groupName);
         Brand brand = brandService.getBrandByNameContains(brandName);
         Rank rank = rankService.getRankByNameContains(rankName);
+        Vip vip = vipService.getVipByNameContains(vipName);
 
         System.out.println(group);
         System.out.println(brand);
@@ -51,6 +56,8 @@ public class QaService implements IQaService {
             return getBrandsByGroupAndRankAnswer(group, rank, 8);
         if (questionIndex == 8)
             return getAppAndPlatByBrandAnswer(brand);
+        if (questionIndex == 9)
+            return getDiscountByBrandAndVipAnswer(brand, vip);
 
 
         return "...";
@@ -188,6 +195,27 @@ public class QaService implements IQaService {
         res += brand.getName();
         res += "可以在";
         res += group.getPlatform() + "和" + group.getHomepage() + "官网进行预订。";
+        return res;
+    }
+
+    @Override
+    public String getDiscountByBrandAndVipAnswer(Brand brand, Vip vip) {
+        if (brand == null)
+            return "没有找到这个酒店的信息。";
+        if (vip == null)
+            return "没有找到这个会员卡的信息。";
+
+        Privilege privilege = privilegeService.getPrivilegeByVidAndBid(vip.getId(), brand.getId());
+        if (privilege == null)
+            return vip.getName() + "在预定" + brand.getName() + "时不享受权益。";
+
+        String res = "";
+        res += vip.getName();
+        res += "在预定";
+        res += brand.getName();
+        res += "时享受";
+        res += privilege.getDiscount();
+        res += "优惠。";
         return res;
     }
 }

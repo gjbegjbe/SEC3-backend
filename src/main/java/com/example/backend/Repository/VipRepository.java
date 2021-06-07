@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface VipRepository extends MongoRepository<Vip, Long> {
 
     Vip findById(long id);
+
+    Vip findByNameContains(String name);
 }

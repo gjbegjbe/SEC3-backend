@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GraphService implements IGraphService {
     @Autowired
-    GraphRepository graphRepository;
+    private GraphRepository graphRepository;
 
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;

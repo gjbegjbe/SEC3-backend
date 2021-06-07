@@ -13,13 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandService implements IBrandService {
     @Autowired
-    GroupRepository groupRepository;
+    private GroupRepository groupRepository;
 
     @Autowired
-    BrandRepository brandRepository;
+    private BrandRepository brandRepository;
 
     @Autowired
-    RankRepository rankRepository;
+    private RankRepository rankRepository;
 
 
     @Override

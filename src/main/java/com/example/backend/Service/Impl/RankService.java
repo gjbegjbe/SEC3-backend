@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RankService implements IRankService {
     @Autowired
-    RankRepository rankRepository;
+    private RankRepository rankRepository;
 
     @Override
     public Rank getRankByNameContains(String name) {

@@ -15,10 +15,10 @@ import java.util.List;
 @Service
 public class GroupService implements IGroupService {
     @Autowired
-    GroupRepository groupRepository;
+    private GroupRepository groupRepository;
 
     @Autowired
-    BrandRepository brandRepository;
+    private BrandRepository brandRepository;
 
     @Override
     public List<String> getGroupNameList() {

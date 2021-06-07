@@ -14,16 +14,16 @@ import java.util.List;
 @Service
 public class QaService implements IQaService {
     @Autowired
-    GroupService groupService;
+    private GroupService groupService;
 
     @Autowired
-    BrandService brandService;
+    private BrandService brandService;
 
     @Autowired
-    RankService rankService;
+    private RankService rankService;
 
     @Autowired
-    BrandRepository brandRepository;
+    private BrandRepository brandRepository;
 
     @Override
     public String getAnswer(int questionIndex, String groupName, String brandName, String rankName, String vipName) {

@@ -16,4 +16,8 @@ public interface BrandRepository extends MongoRepository<Brand, Long> {
     Brand findByName(String name);
 
     Brand findByNameContains(String name);
+
+    List<Brand> findTop8ByRidAndPriority(long rid, String priority);
+
+    List<Brand> findTop8ByGidAndRidAndPriority(long gid, long rid, String priority);
 }

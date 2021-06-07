@@ -57,5 +57,5 @@ public interface IQaService {
      * @param rank
      * @return
      */
-    String getBrandsByGroupAndRankAnswer(Group group, Rank rank);
+    String getBrandsByGroupAndRankAnswer(Group group, Rank rank, int maxNum);
 }

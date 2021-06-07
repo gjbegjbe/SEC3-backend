@@ -18,8 +18,14 @@ public interface IGroupService {
     HashMap<String, Object> getGraphByGroupName(String groupName);
 
     /**
-     * @param groupName
+     * @param name
      * @return
      */
-    Group getGroupByName(String groupName);
+    Group getGroupByNameContains(String name);
+
+    /**
+     * @param id
+     * @return
+     */
+    Group getGroupById(long id);
 }

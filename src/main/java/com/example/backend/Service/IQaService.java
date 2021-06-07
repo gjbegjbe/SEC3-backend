@@ -1,5 +1,9 @@
 package com.example.backend.Service;
 
+import com.example.backend.Model.Brand;
+import com.example.backend.Model.Group;
+import com.example.backend.Model.Rank;
+
 public interface IQaService {
 
     /**
@@ -12,46 +16,46 @@ public interface IQaService {
     String getAnswer(int questionIndex, String groupName, String brandName, String rankName, String vipName);
 
     /**
-     * @param groupName
+     * @param group
      * @return
      */
-    String getGroupIntroAnswer(String groupName);
+    String getGroupIntroAnswer(Group group);
 
     /**
-     * @param groupName
+     * @param group
      * @return
      */
-    String getBrandsUnderGroupAnswer(String groupName);
+    String getBrandsUnderGroupAnswer(Group group);
 
     /**
-     * @param brandName
+     * @param brand
      * @return
      */
-    String getGroupByBrandAnswer(String brandName);
+    String getGroupByBrandAnswer(Brand brand);
 
     /**
-     * @param brandName
-     * @param groupName
+     * @param brand
+     * @param group
      * @return
      */
-    String getRelationBetweenBrandAndGroup(String brandName, String groupName);
+    String getRelationBetweenBrandAndGroup(Brand brand, Group group);
 
     /**
-     * @param brandName
+     * @param brand
      * @return
      */
-    String getRankByBrandAnswer(String brandName);
+    String getRankByBrandAnswer(Brand brand);
 
     /**
-     * @param rankName
+     * @param rank
      * @return
      */
-    String getBrandsByRankAnswer(String rankName);
+    String getBrandsByRankAnswer(Rank rank);
 
     /**
-     * @param groupName
-     * @param rankName
+     * @param group
+     * @param rank
      * @return
      */
-    String getBrandsByGroupAndRankAnswer(String groupName, String rankName);
+    String getBrandsByGroupAndRankAnswer(Group group, Rank rank);
 }

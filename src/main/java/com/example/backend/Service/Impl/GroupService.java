@@ -68,7 +68,22 @@ public class GroupService implements IGroupService {
     }
 
     @Override
-    public Group getGroupByName(String groupName) {
-        return groupRepository.findByName(groupName);
+    public Group getGroupByNameContains(String name) {
+        try {
+            Group group = groupRepository.findByNameContains(name);
+            return group;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Group getGroupById(long id) {
+        try {
+            Group group = groupRepository.findById(id);
+            return group;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

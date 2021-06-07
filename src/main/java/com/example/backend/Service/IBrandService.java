@@ -1,5 +1,6 @@
 package com.example.backend.Service;
 
+import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
 import com.example.backend.Model.Rank;
 
@@ -17,4 +18,10 @@ public interface IBrandService {
      * @return
      */
     Rank getRankByBrandName(String brandName);
+
+    /**
+     * @param name
+     * @return
+     */
+    Brand getBrandByNameContains(String name);
 }

@@ -8,4 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface GroupRepository extends MongoRepository<Group, Long> {
 
     Group findByName(String name);
+
+    Group findByNameContains(String name);
+
+    Group findById(long id);
 }

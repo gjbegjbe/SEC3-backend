@@ -1,6 +1,5 @@
 package com.example.backend.Service.Impl;
 
-import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
 import com.example.backend.Model.Rank;
@@ -27,8 +26,7 @@ public class BrandService implements IBrandService {
     public Group getGroupByBrandName(String brandName) {
         try {
             Brand brand = brandRepository.findByName(brandName);
-            Group group = groupRepository.findById(brand.getGid())
-                    .orElseThrow(() -> new ResourceNotFoundException("Group not found for this brandName"));
+            Group group = groupRepository.findById(brand.getGid());
             return group;
         } catch (Exception e) {
             return null;
@@ -39,9 +37,18 @@ public class BrandService implements IBrandService {
     public Rank getRankByBrandName(String brandName) {
         try {
             Brand brand = brandRepository.findByName(brandName);
-            Rank rank = rankRepository.findById(brand.getRid())
-                    .orElseThrow(() -> new ResourceNotFoundException("Rank not found for this brandName"));
+            Rank rank = rankRepository.findById(brand.getRid());
             return rank;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public Brand getBrandByNameContains(String name) {
+        try {
+            Brand brand = brandRepository.findByNameContains(name);
+            return brand;
         } catch (Exception e) {
             return null;
         }

@@ -41,8 +41,7 @@ public class MyCoinService implements IMyCoinService {
     @Override
     public boolean deleteGroupById(long gruopId) {
         try {
-            Group resGroup = groupRepository.findById(gruopId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Group not found for this id : " + gruopId));
+            Group resGroup = groupRepository.findById(gruopId);
             groupRepository.delete(resGroup);
             brandRepository.deleteByGid(gruopId);
             return true;

@@ -14,4 +14,6 @@ public interface BrandRepository extends MongoRepository<Brand, Long> {
     List<Brand> findAllByGid(long gid);
 
     Brand findByName(String name);
+
+    Brand findByNameContains(String name);
 }

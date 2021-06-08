@@ -85,4 +85,10 @@ public interface IQaService {
      * @return
      */
     String getBreakfastDetailByBrandAnswer(Brand brand);
+
+    /**
+     * @param brand
+     * @return
+     */
+    String getCheakoutDetailByBrandAnswer(Brand brand);
 }

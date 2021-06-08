@@ -66,6 +66,8 @@ public class QaService implements IQaService {
             return getPrivilegeAnswerByBrandAndVipAnswer(brand, vip);
         if (questionIndex == 11)
             return getBreakfastDetailByBrandAnswer(brand);
+        if (questionIndex == 12)
+            return getCheakoutDetailByBrandAnswer(brand);
 
 
         return "...";
@@ -278,6 +280,34 @@ public class QaService implements IQaService {
 
         res = res.substring(0, res.length() - 1);
         res += "提供" + lastBreakfastNum + "份免费早餐。";
+        return res;
+    }
+
+    @Override
+    public String getCheakoutDetailByBrandAnswer(Brand brand) {
+        if (brand == null)
+            return "没有找到这个酒店的信息。";
+        List<Privilege> privilegeList = privilegeRepository.findAllByBidOrderByCheckoutAsc(brand.getId());
+        if (privilegeList.isEmpty())
+            return "没有找到这个酒店的关于退房时间的信息。";
+
+        String res = brand.getName();
+        String lastCheakout = "00:00";
+        for (Privilege privilege : privilegeList) {
+            String currCheakout = privilege.getCheckout();
+
+            if (currCheakout.equals(lastCheakout))
+                res += vipService.getVipById(privilege.getVid()).getName() + "、";
+            else {
+                if (!lastCheakout.equals("00:00"))
+                    res = res.substring(0, res.length() - 1) + "可以延迟到" + lastCheakout + "退房，";
+                res += "对" + vipService.getVipById(privilege.getVid()).getName() + "、";
+                lastCheakout = currCheakout;
+            }
+        }
+
+        res = res.substring(0, res.length() - 1);
+        res += "可以延迟到" + lastCheakout + "退房。";
         return res;
     }
 }

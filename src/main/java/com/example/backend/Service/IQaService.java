@@ -79,4 +79,10 @@ public interface IQaService {
      * @return
      */
     String getPrivilegeAnswerByBrandAndVipAnswer(Brand brand, Vip vip);
+
+    /**
+     * @param brand
+     * @return
+     */
+    String getBreakfastDetailByBrandAnswer(Brand brand);
 }

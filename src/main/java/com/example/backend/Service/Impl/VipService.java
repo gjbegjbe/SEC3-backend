@@ -20,4 +20,14 @@ public class VipService implements IVipService {
             return null;
         }
     }
+
+    @Override
+    public Vip getVipById(long id) {
+        try {
+            Vip vip = vipRepository.findById(id);
+            return vip;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.example.backend.Service.Impl;
 
 import com.example.backend.Model.*;
 import com.example.backend.Repository.BrandRepository;
+import com.example.backend.Repository.PrivilegeRepository;
 import com.example.backend.Service.IQaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class QaService implements IQaService {
 
     @Autowired
     private BrandRepository brandRepository;
+
+    @Autowired
+    private PrivilegeRepository privilegeRepository;
 
     @Override
     public String getAnswer(int questionIndex, String groupName, String brandName, String rankName, String vipName) {
@@ -60,6 +64,8 @@ public class QaService implements IQaService {
             return getDiscountByBrandAndVipAnswer(brand, vip);
         if (questionIndex == 10)
             return getPrivilegeAnswerByBrandAndVipAnswer(brand, vip);
+        if (questionIndex == 11)
+            return getBreakfastDetailByBrandAnswer(brand);
 
 
         return "...";
@@ -241,6 +247,37 @@ public class QaService implements IQaService {
             res += "赠送" + privilege.getBreakfast() + "份免费早餐。";
         }
 
+        return res;
+    }
+
+    @Override
+    public String getBreakfastDetailByBrandAnswer(Brand brand) {
+        if (brand == null)
+            return "没有找到这个酒店的信息。";
+
+        List<Privilege> privilegeList = privilegeRepository.findAllByBidOrderByBreakfastAsc(brand.getId());
+        if (privilegeList.isEmpty() || privilegeList.get(privilegeList.size() - 1).getBreakfast() == 0)
+            return brand.getName() + "不提供免费早餐。";
+
+        String res = brand.getName();
+        long lastBreakfastNum = 100;
+        for (Privilege privilege : privilegeList) {
+            long currBreakfastNum = privilege.getBreakfast();
+            if (currBreakfastNum == 0)
+                continue;
+
+            if (currBreakfastNum == lastBreakfastNum)
+                res += vipService.getVipById(privilege.getVid()).getName() + "、";
+            else {
+                if (lastBreakfastNum != 100)
+                    res = res.substring(0, res.length() - 1) + "提供" + lastBreakfastNum + "份免费早餐，";
+                res += "对" + vipService.getVipById(privilege.getVid()).getName() + "、";
+                lastBreakfastNum = currBreakfastNum;
+            }
+        }
+
+        res = res.substring(0, res.length() - 1);
+        res += "提供" + lastBreakfastNum + "份免费早餐。";
         return res;
     }
 }

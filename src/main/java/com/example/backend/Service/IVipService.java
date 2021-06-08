@@ -10,4 +10,10 @@ public interface IVipService {
      * @return
      */
     Vip getVipByNameContains(String name);
+
+    /**
+     * @param id
+     * @return
+     */
+    Vip getVipById(long id);
 }

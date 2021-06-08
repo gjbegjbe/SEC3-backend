@@ -26,8 +26,7 @@ public class BrandService implements IBrandService {
     public Group getGroupByBrandName(String brandName) {
         try {
             Brand brand = brandRepository.findByName(brandName);
-            Group group = groupRepository.findById(brand.getGid());
-            return group;
+            return groupRepository.findById(brand.getGid());
         } catch (Exception e) {
             return null;
         }
@@ -37,8 +36,7 @@ public class BrandService implements IBrandService {
     public Rank getRankByBrandName(String brandName) {
         try {
             Brand brand = brandRepository.findByName(brandName);
-            Rank rank = rankRepository.findById(brand.getRid());
-            return rank;
+            return rankRepository.findById(brand.getRid());
         } catch (Exception e) {
             return null;
         }

@@ -14,8 +14,7 @@ public class PrivilegeService implements IPrivilegeService {
     @Override
     public Privilege getPrivilegeByVidAndBid(long vid, long bid) {
         try {
-            Privilege privilege = privilegeRepository.findByVidAndBid(vid, bid);
-            return privilege;
+            return privilegeRepository.findByVidAndBid(vid, bid);
         } catch (Exception e) {
             return null;
         }

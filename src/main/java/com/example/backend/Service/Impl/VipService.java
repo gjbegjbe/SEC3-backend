@@ -14,8 +14,7 @@ public class VipService implements IVipService {
     @Override
     public Vip getVipByNameContains(String name) {
         try {
-            Vip vip = vipRepository.findByNameContains(name);
-            return vip;
+            return vipRepository.findByNameContains(name);
         } catch (Exception e) {
             return null;
         }
@@ -24,8 +23,7 @@ public class VipService implements IVipService {
     @Override
     public Vip getVipById(long id) {
         try {
-            Vip vip = vipRepository.findById(id);
-            return vip;
+            return vipRepository.findById(id);
         } catch (Exception e) {
             return null;
         }

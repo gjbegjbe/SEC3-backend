@@ -40,9 +40,11 @@ public class QaService implements IQaService {
         Rank rank = rankService.getRankByNameContains(rankName);
         Vip vip = vipService.getVipByNameContains(vipName);
 
+        System.out.println("question: q" + (questionIndex - 1));
         System.out.println(group);
         System.out.println(brand);
         System.out.println(rank);
+        System.out.println(vip);
 
         if (questionIndex == 1)
             return getGroupIntroAnswer(group);

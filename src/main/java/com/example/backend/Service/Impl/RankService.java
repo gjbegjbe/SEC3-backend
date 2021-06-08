@@ -14,8 +14,7 @@ public class RankService implements IRankService {
     @Override
     public Rank getRankByNameContains(String name) {
         try {
-            Rank rank = rankRepository.findByNameContains(name);
-            return rank;
+            return rankRepository.findByNameContains(name);
         } catch (Exception e) {
             return null;
         }
@@ -24,8 +23,7 @@ public class RankService implements IRankService {
     @Override
     public Rank getRankById(long id) {
         try {
-            Rank rank = rankRepository.findById(id);
-            return rank;
+            return rankRepository.findById(id);
         } catch (Exception e) {
             return null;
         }

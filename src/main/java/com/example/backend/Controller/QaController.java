@@ -18,6 +18,7 @@ public class QaController {
 
     @PostMapping("/getAnswer")
     public ResponseEntity<Map<String, String>> getAnswer(@Valid @RequestBody Map<String, Object> body) {
+        System.out.println(body.toString());
         int questionIndex = (int) body.get("questionIndex");
         String groupName = (String) body.get("groupName");
         String brandName = (String) body.get("brandName");

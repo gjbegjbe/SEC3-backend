@@ -70,8 +70,7 @@ public class GroupService implements IGroupService {
     @Override
     public Group getGroupByNameContains(String name) {
         try {
-            Group group = groupRepository.findByNameContains(name);
-            return group;
+            return groupRepository.findByNameContains(name);
         } catch (Exception e) {
             return null;
         }
@@ -80,8 +79,7 @@ public class GroupService implements IGroupService {
     @Override
     public Group getGroupById(long id) {
         try {
-            Group group = groupRepository.findById(id);
-            return group;
+            return groupRepository.findById(id);
         } catch (Exception e) {
             return null;
         }

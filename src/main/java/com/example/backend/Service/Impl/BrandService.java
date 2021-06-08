@@ -1,11 +1,7 @@
 package com.example.backend.Service.Impl;
 
 import com.example.backend.Model.Brand;
-import com.example.backend.Model.Group;
-import com.example.backend.Model.Rank;
 import com.example.backend.Repository.BrandRepository;
-import com.example.backend.Repository.GroupRepository;
-import com.example.backend.Repository.RankRepository;
 import com.example.backend.Service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,34 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BrandService implements IBrandService {
     @Autowired
-    private GroupRepository groupRepository;
-
-    @Autowired
     private BrandRepository brandRepository;
-
-    @Autowired
-    private RankRepository rankRepository;
-
-
-    @Override
-    public Group getGroupByBrandName(String brandName) {
-        try {
-            Brand brand = brandRepository.findByName(brandName);
-            return groupRepository.findById(brand.getGid());
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
-    public Rank getRankByBrandName(String brandName) {
-        try {
-            Brand brand = brandRepository.findByName(brandName);
-            return rankRepository.findById(brand.getRid());
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
     @Override
     public Brand getBrandByNameContains(String name) {

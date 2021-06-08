@@ -46,11 +46,13 @@ public class BrandService implements IBrandService {
 
     @Override
     public Brand getBrandByNameContains(String name) {
+        Brand brand;
         try {
-            Brand brand = brandRepository.findByNameContains(name);
-            return brand;
+            brand = brandRepository.findByNameContains(name);
         } catch (Exception e) {
-            return null;
+            brand = brandRepository.findByName(name);
         }
+
+        return brand;
     }
 }

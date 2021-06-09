@@ -40,7 +40,7 @@ public class GroupService implements IGroupService {
 
 
     @Override
-    public HashMap<String, Object> getGraphByGroupName(String groupName) {
+    public HashMap<String, Object> getGraphByGroupName4Level(String groupName) {
         HashMap<String, Object> graph = new HashMap<>();
         List<Object> nodeList = new ArrayList<>();
         List<Object> linkList = new ArrayList<>();
@@ -111,6 +111,71 @@ public class GroupService implements IGroupService {
                 cheakoutLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
                 cheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
                 linkList.add(cheakoutLink);
+            }
+        }
+
+        graph.put("nodes", nodeList);
+        graph.put("links", linkList);
+        return graph;
+    }
+
+    @Override
+    public HashMap<String, Object> getGraphByGroupName3Level(String groupName) {
+        HashMap<String, Object> graph = new HashMap<>();
+        List<Object> nodeList = new ArrayList<>();
+        List<Object> linkList = new ArrayList<>();
+
+        Group group = groupRepository.findByName(groupName);
+        HashMap<String, Object> groupNode = new HashMap<>();
+        System.out.println(group.getName());
+        groupNode.put("name", group.getName());
+        groupNode.put("uuid", "group" + group.getId());
+        groupNode.put("type", "group");
+        groupNode.put("color", "rgb(125,213,255)");
+        groupNode.put("shape", "diamond");
+        nodeList.add(groupNode);
+
+        for (Brand brand : brandRepository.findAllByGid(group.getId())) {
+            HashMap<String, Object> brandNode = new HashMap<>();
+            brandNode.put("name", brand.getName());
+            brandNode.put("uuid", "brand" + brand.getId());
+            brandNode.put("type", "Brand");
+            brandNode.put("color", "rgb(80," + brand.getRid() * 50 + ",80)");
+            brandNode.put("shape", "downtriangle");
+            nodeList.add(brandNode);
+            HashMap<String, Object> brandLink = new HashMap<>();
+            brandLink.put("sourceid", "brand" + brand.getId());
+            brandLink.put("targetid", "group" + brand.getGid());
+            brandLink.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
+            linkList.add(brandLink);
+
+            for (Privilege privilege : privilegeRepository.findAllByBidOrderByBreakfastDescCheckoutDesc(brand.getId())) {
+                HashMap<String, Object> breakfastNode = new HashMap<>();
+                breakfastNode.put("name", privilege.getBreakfast() + "份");
+                breakfastNode.put("uuid", "breakfast" + brand.getId());
+                breakfastNode.put("type", "Breakfast");
+                nodeList.add(breakfastNode);
+                HashMap<String, Object> breakfastLink = new HashMap<>();
+                breakfastLink.put("name", "最多免费早餐");
+                breakfastLink.put("sourceid", "breakfast" + brand.getId());
+                breakfastLink.put("targetid", "brand" + brand.getId());
+                breakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + "brand" + brand.getId());
+                linkList.add(breakfastLink);
+
+                HashMap<String, Object> cheakoutNode = new HashMap<>();
+                cheakoutNode.put("name", privilege.getCheckout());
+                cheakoutNode.put("uuid", "cheakout" + brand.getId());
+                cheakoutNode.put("type", "Cheakout");
+                cheakoutNode.put("color", "rgb(127,127,213)");
+                cheakoutNode.put("shape", "roundrectangle");
+                nodeList.add(cheakoutNode);
+                HashMap<String, Object> cheakoutLink = new HashMap<>();
+                cheakoutLink.put("name", "最晚退房");
+                cheakoutLink.put("sourceid", "cheakout" + brand.getId());
+                cheakoutLink.put("targetid", "brand" + brand.getId());
+                cheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + "brand" + brand.getId());
+                linkList.add(cheakoutLink);
+                break;
             }
         }
 

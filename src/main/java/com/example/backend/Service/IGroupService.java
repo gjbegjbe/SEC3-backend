@@ -15,7 +15,12 @@ public interface IGroupService {
     /**
      * @param groupName
      */
-    HashMap<String, Object> getGraphByGroupName(String groupName);
+    HashMap<String, Object> getGraphByGroupName4Level(String groupName);
+
+    /**
+     * @param groupName
+     */
+    HashMap<String, Object> getGraphByGroupName3Level(String groupName);
 
     /**
      * @param name

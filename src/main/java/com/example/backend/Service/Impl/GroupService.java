@@ -2,8 +2,11 @@ package com.example.backend.Service.Impl;
 
 import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
+import com.example.backend.Model.Privilege;
+import com.example.backend.Model.Vip;
 import com.example.backend.Repository.BrandRepository;
 import com.example.backend.Repository.GroupRepository;
+import com.example.backend.Repository.PrivilegeRepository;
 import com.example.backend.Service.IGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,12 @@ public class GroupService implements IGroupService {
 
     @Autowired
     private BrandRepository brandRepository;
+
+    @Autowired
+    private PrivilegeRepository privilegeRepository;
+
+    @Autowired
+    private VipService vipService;
 
     @Override
     public List<String> getGroupNameList() {
@@ -37,29 +46,72 @@ public class GroupService implements IGroupService {
         List<Object> linkList = new ArrayList<>();
 
         Group group = groupRepository.findByName(groupName);
-        HashMap<String, Object> rootNode = new HashMap<>();
+        HashMap<String, Object> groupNode = new HashMap<>();
         System.out.println(group.getName());
-        rootNode.put("name", group.getName());
-        rootNode.put("uuid", "group" + group.getId());
-        rootNode.put("type", "group");
-        rootNode.put("color", "rgb(125,213,255)");
-        rootNode.put("shape", "diamond");
-        nodeList.add(rootNode);
+        groupNode.put("name", group.getName());
+        groupNode.put("uuid", "group" + group.getId());
+        groupNode.put("type", "group");
+        groupNode.put("color", "rgb(125,213,255)");
+        groupNode.put("shape", "diamond");
+        nodeList.add(groupNode);
 
         for (Brand brand : brandRepository.findAllByGid(group.getId())) {
-            HashMap<String, Object> currNode = new HashMap<>();
-            currNode.put("name", brand.getName());
-            currNode.put("uuid", "brand" + brand.getId());
-            currNode.put("type", "Brand");
-            currNode.put("color", "rgb(80," + brand.getRid() * 50 + ",80)");
-            currNode.put("shape", "downtriangle");
-            nodeList.add(currNode);
+            HashMap<String, Object> brandNode = new HashMap<>();
+            brandNode.put("name", brand.getName());
+            brandNode.put("uuid", "brand" + brand.getId());
+            brandNode.put("type", "Brand");
+            brandNode.put("color", "rgb(80," + brand.getRid() * 50 + ",80)");
+            brandNode.put("shape", "downtriangle");
+            nodeList.add(brandNode);
+            HashMap<String, Object> brandLink = new HashMap<>();
+            brandLink.put("sourceid", "brand" + brand.getId());
+            brandLink.put("targetid", "group" + brand.getGid());
+            brandLink.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
+            linkList.add(brandLink);
 
-            HashMap<String, Object> currLink1 = new HashMap<>();
-            currLink1.put("sourceid", "brand" + brand.getId());
-            currLink1.put("targetid", "group" + brand.getGid());
-            currLink1.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
-            linkList.add(currLink1);
+            for (Privilege privilege : privilegeRepository.findAllByBid(brand.getId())) {
+                Vip vip = vipService.getVipById(privilege.getVid());
+                String vipName = vip.getName();
+
+                HashMap<String, Object> vipNode = new HashMap<>();
+                vipNode.put("name", vipName);
+                vipNode.put("uuid", "vip" + brand.getId() + "-" + vip.getId());
+                vipNode.put("type", "Vip");
+                vipNode.put("color", "rgb(127,127,213)");
+                vipNode.put("shape", "star");
+                nodeList.add(vipNode);
+                HashMap<String, Object> vipLink = new HashMap<>();
+                vipLink.put("sourceid", "vip" + brand.getId() + "-" + vip.getId());
+                vipLink.put("targetid", "brand" + brand.getId());
+                vipLink.put("uuid", "brand" + brand.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
+                linkList.add(vipLink);
+
+                HashMap<String, Object> BreakfastNode = new HashMap<>();
+                BreakfastNode.put("name", privilege.getBreakfast() + "份");
+                BreakfastNode.put("uuid", "breakfast" + brand.getId() + "-" + vip.getId());
+                BreakfastNode.put("type", "Breakfast");
+                nodeList.add(BreakfastNode);
+                HashMap<String, Object> BreakfastLink = new HashMap<>();
+                BreakfastLink.put("name", "免费早餐");
+                BreakfastLink.put("sourceid", "breakfast" + brand.getId() + "-" + vip.getId());
+                BreakfastLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
+                BreakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
+                linkList.add(BreakfastLink);
+
+                HashMap<String, Object> CheakoutNode = new HashMap<>();
+                CheakoutNode.put("name", privilege.getCheckout());
+                CheakoutNode.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId());
+                CheakoutNode.put("type", "Cheakout");
+                CheakoutNode.put("color", "rgb(127,127,213)");
+                CheakoutNode.put("shape", "roundrectangle");
+                nodeList.add(CheakoutNode);
+                HashMap<String, Object> CheakoutLink = new HashMap<>();
+                CheakoutLink.put("name", "最晚退房");
+                CheakoutLink.put("sourceid", "cheakout" + brand.getId() + "-" + vip.getId());
+                CheakoutLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
+                CheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
+                linkList.add(CheakoutLink);
+            }
         }
 
         graph.put("nodes", nodeList);

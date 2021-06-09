@@ -86,31 +86,31 @@ public class GroupService implements IGroupService {
                 vipLink.put("uuid", "brand" + brand.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
                 linkList.add(vipLink);
 
-                HashMap<String, Object> BreakfastNode = new HashMap<>();
-                BreakfastNode.put("name", privilege.getBreakfast() + "份");
-                BreakfastNode.put("uuid", "breakfast" + brand.getId() + "-" + vip.getId());
-                BreakfastNode.put("type", "Breakfast");
-                nodeList.add(BreakfastNode);
-                HashMap<String, Object> BreakfastLink = new HashMap<>();
-                BreakfastLink.put("name", "免费早餐");
-                BreakfastLink.put("sourceid", "breakfast" + brand.getId() + "-" + vip.getId());
-                BreakfastLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
-                BreakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
-                linkList.add(BreakfastLink);
+                HashMap<String, Object> breakfastNode = new HashMap<>();
+                breakfastNode.put("name", privilege.getBreakfast() + "份");
+                breakfastNode.put("uuid", "breakfast" + brand.getId() + "-" + vip.getId());
+                breakfastNode.put("type", "Breakfast");
+                nodeList.add(breakfastNode);
+                HashMap<String, Object> breakfastLink = new HashMap<>();
+                breakfastLink.put("name", "免费早餐");
+                breakfastLink.put("sourceid", "breakfast" + brand.getId() + "-" + vip.getId());
+                breakfastLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
+                breakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
+                linkList.add(breakfastLink);
 
-                HashMap<String, Object> CheakoutNode = new HashMap<>();
-                CheakoutNode.put("name", privilege.getCheckout());
-                CheakoutNode.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId());
-                CheakoutNode.put("type", "Cheakout");
-                CheakoutNode.put("color", "rgb(127,127,213)");
-                CheakoutNode.put("shape", "roundrectangle");
-                nodeList.add(CheakoutNode);
-                HashMap<String, Object> CheakoutLink = new HashMap<>();
-                CheakoutLink.put("name", "最晚退房");
-                CheakoutLink.put("sourceid", "cheakout" + brand.getId() + "-" + vip.getId());
-                CheakoutLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
-                CheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
-                linkList.add(CheakoutLink);
+                HashMap<String, Object> cheakoutNode = new HashMap<>();
+                cheakoutNode.put("name", privilege.getCheckout());
+                cheakoutNode.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId());
+                cheakoutNode.put("type", "Cheakout");
+                cheakoutNode.put("color", "rgb(127,127,213)");
+                cheakoutNode.put("shape", "roundrectangle");
+                nodeList.add(cheakoutNode);
+                HashMap<String, Object> cheakoutLink = new HashMap<>();
+                cheakoutLink.put("name", "最晚退房");
+                cheakoutLink.put("sourceid", "cheakout" + brand.getId() + "-" + vip.getId());
+                cheakoutLink.put("targetid", "vip" + brand.getId() + "-" + vip.getId());
+                cheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + vip.getId() + "-" + "vip" + brand.getId() + "-" + vip.getId());
+                linkList.add(cheakoutLink);
             }
         }
 

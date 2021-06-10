@@ -154,6 +154,8 @@ public class GroupService implements IGroupService {
                 breakfastNode.put("name", privilege.getBreakfast() + "份");
                 breakfastNode.put("uuid", "breakfast" + brand.getId());
                 breakfastNode.put("type", "Breakfast");
+                breakfastNode.put("shape", "star");
+                breakfastNode.put("color", "rgb(551,114,514)");
                 nodeList.add(breakfastNode);
                 HashMap<String, Object> breakfastLink = new HashMap<>();
                 breakfastLink.put("name", "最多免费早餐");

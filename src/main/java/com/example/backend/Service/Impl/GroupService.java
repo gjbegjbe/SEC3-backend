@@ -149,36 +149,41 @@ public class GroupService implements IGroupService {
             brandLink.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
             linkList.add(brandLink);
 
-            for (Privilege privilege : privilegeRepository.findAllByBidOrderByBreakfastDescCheckoutDesc(brand.getId())) {
-                HashMap<String, Object> breakfastNode = new HashMap<>();
-                breakfastNode.put("name", privilege.getBreakfast() + "份");
-                breakfastNode.put("uuid", "breakfast" + brand.getId());
-                breakfastNode.put("type", "Breakfast");
-                breakfastNode.put("shape", "star");
-                breakfastNode.put("color", "rgb(551,114,514)");
-                nodeList.add(breakfastNode);
-                HashMap<String, Object> breakfastLink = new HashMap<>();
-                breakfastLink.put("name", "最多免费早餐");
-                breakfastLink.put("sourceid", "breakfast" + brand.getId());
-                breakfastLink.put("targetid", "brand" + brand.getId());
-                breakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + "brand" + brand.getId());
-                linkList.add(breakfastLink);
-
-                HashMap<String, Object> cheakoutNode = new HashMap<>();
-                cheakoutNode.put("name", privilege.getCheckout());
-                cheakoutNode.put("uuid", "cheakout" + brand.getId());
-                cheakoutNode.put("type", "Cheakout");
-                cheakoutNode.put("color", "rgb(127,127,213)");
-                cheakoutNode.put("shape", "roundrectangle");
-                nodeList.add(cheakoutNode);
-                HashMap<String, Object> cheakoutLink = new HashMap<>();
-                cheakoutLink.put("name", "最晚退房");
-                cheakoutLink.put("sourceid", "cheakout" + brand.getId());
-                cheakoutLink.put("targetid", "brand" + brand.getId());
-                cheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + "brand" + brand.getId());
-                linkList.add(cheakoutLink);
-                break;
+            Privilege privilege;
+            try {
+                privilege = privilegeRepository.findFirstByBidOrderByBreakfastDescCheckoutDesc(brand.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
             }
+
+            HashMap<String, Object> breakfastNode = new HashMap<>();
+            breakfastNode.put("name", privilege.getBreakfast() + "份");
+            breakfastNode.put("uuid", "breakfast" + brand.getId());
+            breakfastNode.put("type", "Breakfast");
+            breakfastNode.put("shape", "star");
+            breakfastNode.put("color", "rgb(551,114,514)");
+            nodeList.add(breakfastNode);
+            HashMap<String, Object> breakfastLink = new HashMap<>();
+            breakfastLink.put("name", "最多免费早餐");
+            breakfastLink.put("sourceid", "breakfast" + brand.getId());
+            breakfastLink.put("targetid", "brand" + brand.getId());
+            breakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + "brand" + brand.getId());
+            linkList.add(breakfastLink);
+
+            HashMap<String, Object> cheakoutNode = new HashMap<>();
+            cheakoutNode.put("name", privilege.getCheckout());
+            cheakoutNode.put("uuid", "cheakout" + brand.getId());
+            cheakoutNode.put("type", "Cheakout");
+            cheakoutNode.put("color", "rgb(127,127,213)");
+            cheakoutNode.put("shape", "roundrectangle");
+            nodeList.add(cheakoutNode);
+            HashMap<String, Object> cheakoutLink = new HashMap<>();
+            cheakoutLink.put("name", "最晚退房");
+            cheakoutLink.put("sourceid", "cheakout" + brand.getId());
+            cheakoutLink.put("targetid", "brand" + brand.getId());
+            cheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + "brand" + brand.getId());
+            linkList.add(cheakoutLink);
         }
 
         graph.put("nodes", nodeList);

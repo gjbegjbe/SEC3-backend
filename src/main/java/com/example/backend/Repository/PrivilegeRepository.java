@@ -15,7 +15,7 @@ public interface PrivilegeRepository extends MongoRepository<Privilege, Long> {
 
     List<Privilege> findAllByBidOrderByBreakfastAsc(long bid);
 
-    List<Privilege> findAllByBidOrderByBreakfastDescCheckoutDesc(long bid);
+    Privilege findFirstByBidOrderByBreakfastDescCheckoutDesc(long bid);
 
     List<Privilege> findAllByBidOrderByCheckoutAsc(long bid);
 

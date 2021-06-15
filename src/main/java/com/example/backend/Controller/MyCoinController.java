@@ -78,4 +78,13 @@ public class MyCoinController {
         Map<String, Object> response = groupService.getGraphByGroupName3Level(name);
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/getDetailByBrandName")
+    public ResponseEntity<Map<String, Object>> getDetailByBrandName(@Valid @RequestBody Map<String, Object> body) {
+        String name = (String) body.get("brandName");
+        System.out.println("asdsa" + name);
+        Map<String, Object> response = new HashMap<>();
+        response.put("detail", name + "的详细信息。");
+        return ResponseEntity.ok().body(response);
+    }
 }

@@ -10,4 +10,10 @@ public interface IBrandService {
      * @return
      */
     Brand getBrandByNameContains(String name);
+
+    /**
+     * @param name
+     * @return
+     */
+    String getDetailByBrandName(String name);
 }

@@ -3,6 +3,7 @@ package com.example.backend.Controller;
 import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
 import com.example.backend.Service.IMyCoinService;
+import com.example.backend.Service.Impl.BrandService;
 import com.example.backend.Service.Impl.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,9 @@ public class MyCoinController {
 
     @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private BrandService brandService;
 
     @PostMapping("/addGroup")
     public ResponseEntity<Map<String, Object>> addGroup(@Valid @RequestBody Group group) {
@@ -82,9 +86,9 @@ public class MyCoinController {
     @PostMapping("/getDetailByBrandName")
     public ResponseEntity<Map<String, Object>> getDetailByBrandName(@Valid @RequestBody Map<String, Object> body) {
         String name = (String) body.get("brandName");
-        System.out.println("asdsa" + name);
+        System.out.println("getDetailByBrandName " + name);
         Map<String, Object> response = new HashMap<>();
-        response.put("detail", name + "的详细信息。");
+        response.put("detail", brandService.getDetailByBrandName(name));
         return ResponseEntity.ok().body(response);
     }
 }

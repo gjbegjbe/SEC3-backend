@@ -12,11 +12,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 @Service
 public class GroupService implements IGroupService {
+    private final List<String> brandColorList = Arrays.asList(
+            "rgb(230,241,216)",
+            "rgb(175,215,136)",
+            "rgb(91,189,43)",
+            "rgb(72,150,32)",
+            "rgb(54,117,23)"
+    );
+
     @Autowired
     private GroupRepository groupRepository;
 
@@ -140,7 +149,7 @@ public class GroupService implements IGroupService {
             brandNode.put("name", brand.getName());
             brandNode.put("uuid", "brand" + brand.getId());
             brandNode.put("type", "Brand");
-            brandNode.put("color", "rgb(80," + brand.getRid() * 50 + ",80)");
+            brandNode.put("color", brandColorList.get((int) (brand.getRid() - 1)));
             brandNode.put("shape", "downtriangle");
             nodeList.add(brandNode);
             HashMap<String, Object> brandLink = new HashMap<>();

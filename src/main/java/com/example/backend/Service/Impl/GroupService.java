@@ -141,7 +141,8 @@ public class GroupService implements IGroupService {
         groupNode.put("uuid", "group" + group.getId());
         groupNode.put("type", "group");
         groupNode.put("color", "rgb(125,213,255)");
-        groupNode.put("shape", "diamond");
+        groupNode.put("shape", "piccircle");
+        groupNode.put("imgsrc", group.getImgsrc());
         nodeList.add(groupNode);
 
         for (Brand brand : brandRepository.findAllByGid(group.getId())) {

@@ -22,6 +22,8 @@ public class Group {
 
     private String homepage;
 
+    private String imgsrc;
+
     public Group() {
 
     }
@@ -64,5 +66,13 @@ public class Group {
 
     public void setHomepage(String homepage) {
         this.homepage = homepage;
+    }
+
+    public String getImgsrc() {
+        return imgsrc;
+    }
+
+    public void setImgsrc(String imgsrc) {
+        this.imgsrc = imgsrc;
     }
 }

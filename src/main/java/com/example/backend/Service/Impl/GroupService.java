@@ -64,8 +64,8 @@ public class GroupService implements IGroupService {
             brandNode.put("shape", "downtriangle");
             nodeList.add(brandNode);
             HashMap<String, Object> brandLink = new HashMap<>();
-            brandLink.put("sourceid", "brand" + brand.getId());
-            brandLink.put("targetid", "group" + brand.getGid());
+            brandLink.put("sourceid", "group" + brand.getGid());
+            brandLink.put("targetid", "brand" + brand.getId());
             brandLink.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
             linkList.add(brandLink);
 
@@ -144,8 +144,8 @@ public class GroupService implements IGroupService {
             brandNode.put("shape", "downtriangle");
             nodeList.add(brandNode);
             HashMap<String, Object> brandLink = new HashMap<>();
-            brandLink.put("sourceid", "brand" + brand.getId());
-            brandLink.put("targetid", "group" + brand.getGid());
+            brandLink.put("sourceid", "group" + brand.getGid());
+            brandLink.put("targetid", "brand" + brand.getId());
             brandLink.put("uuid", "group" + brand.getGid() + "-" + "brand" + brand.getId());
             linkList.add(brandLink);
 

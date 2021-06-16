@@ -33,4 +33,10 @@ public interface IGroupService {
      * @return
      */
     Group getGroupById(long id);
+
+    /**
+     * @param groupName
+     * @return
+     */
+    String getDetailByGroupName(String groupName);
 }

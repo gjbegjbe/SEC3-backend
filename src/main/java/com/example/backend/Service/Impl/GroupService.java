@@ -208,4 +208,12 @@ public class GroupService implements IGroupService {
             return null;
         }
     }
+
+    @Override
+    public String getDetailByGroupName(String groupName) {
+        Group group = getGroupByNameContains(groupName);
+        if (group == null)
+            return "暂无相关信息。";
+        return group.getIntroduction() + groupName + "的APP是" + group.getPlatform() + "，官方站点是" + group.getHomepage() + "。";
+    }
 }

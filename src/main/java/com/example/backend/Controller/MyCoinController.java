@@ -91,4 +91,13 @@ public class MyCoinController {
         response.put("detail", brandService.getDetailByBrandName(name));
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/getDetailByGroupName")
+    public ResponseEntity<Map<String, Object>> getDetailByGroupName(@Valid @RequestBody Map<String, Object> body) {
+        String name = (String) body.get("groupName");
+        System.out.println("getDetailByGroupName " + name);
+        Map<String, Object> response = new HashMap<>();
+        response.put("detail", groupService.getDetailByGroupName(name));
+        return ResponseEntity.ok().body(response);
+    }
 }

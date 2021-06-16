@@ -133,6 +133,7 @@ public class GroupService implements IGroupService {
         groupNode.put("type", "group");
         groupNode.put("color", "rgb(125,213,255)");
         groupNode.put("shape", "diamond");
+        groupNode.put("imgsrc", "https://ftp.bmp.ovh/imgs/2021/06/1e8d32e9e3f8b6f6.jpeg");
         nodeList.add(groupNode);
 
         for (Brand brand : brandRepository.findAllByGid(group.getId())) {
@@ -142,6 +143,7 @@ public class GroupService implements IGroupService {
             brandNode.put("type", "Brand");
             brandNode.put("color", "rgb(80," + brand.getRid() * 50 + ",80)");
             brandNode.put("shape", "downtriangle");
+            brandNode.put("imgsrc", "https://ftp.bmp.ovh/imgs/2021/06/1e8d32e9e3f8b6f6.jpeg");
             nodeList.add(brandNode);
             HashMap<String, Object> brandLink = new HashMap<>();
             brandLink.put("sourceid", "group" + brand.getGid());

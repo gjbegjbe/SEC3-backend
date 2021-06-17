@@ -41,11 +41,11 @@ public class MyCoinService implements IMyCoinService {
     }
 
     @Override
-    public boolean deleteGroupById(long gruopId) {
+    public boolean deleteGroupById(long groupId) {
         try {
-            Group resGroup = groupRepository.findById(gruopId);
+            Group resGroup = groupRepository.findById(groupId);
             groupRepository.delete(resGroup);
-            brandRepository.deleteByGid(gruopId);
+            brandRepository.deleteByGid(groupId);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -13,10 +13,10 @@ public interface IMyCoinService {
     long addGroup(Group group);
 
     /**
-     * @param gruopId
+     * @param groupId
      * @return
      */
-    boolean deleteGroupById(long gruopId);
+    boolean deleteGroupById(long groupId);
 
     /**
      * @param brand

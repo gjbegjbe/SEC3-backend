@@ -56,7 +56,7 @@ public class GroupService implements IGroupService {
         System.out.println(group.getName());
         groupNode.put("name", group.getName());
         groupNode.put("uuid", "group" + group.getId());
-        groupNode.put("type", "group");
+        groupNode.put("type", "Group");
         groupNode.put("color", "rgb(125,213,255)");
         groupNode.put("shape", "piccircle");
         groupNode.put("imgsrc", group.getImgsrc());
@@ -98,19 +98,19 @@ public class GroupService implements IGroupService {
             breakfastLink.put("uuid", "breakfast" + brand.getId() + "-" + "brand" + brand.getId());
             linkList.add(breakfastLink);
 
-            HashMap<String, Object> cheakoutNode = new HashMap<>();
-            cheakoutNode.put("name", privilege.getCheckout());
-            cheakoutNode.put("uuid", "cheakout" + brand.getId());
-            cheakoutNode.put("type", "Cheakout");
-            cheakoutNode.put("color", "rgb(127,127,213)");
-            cheakoutNode.put("shape", "roundrectangle");
-            nodeList.add(cheakoutNode);
-            HashMap<String, Object> cheakoutLink = new HashMap<>();
-            cheakoutLink.put("name", "最晚退房");
-            cheakoutLink.put("sourceid", "cheakout" + brand.getId());
-            cheakoutLink.put("targetid", "brand" + brand.getId());
-            cheakoutLink.put("uuid", "cheakout" + brand.getId() + "-" + "brand" + brand.getId());
-            linkList.add(cheakoutLink);
+            HashMap<String, Object> checkoutNode = new HashMap<>();
+            checkoutNode.put("name", privilege.getCheckout());
+            checkoutNode.put("uuid", "checkout" + brand.getId());
+            checkoutNode.put("type", "Checkout");
+            checkoutNode.put("color", "rgb(127,127,213)");
+            checkoutNode.put("shape", "roundrectangle");
+            nodeList.add(checkoutNode);
+            HashMap<String, Object> checkoutLink = new HashMap<>();
+            checkoutLink.put("name", "最晚退房");
+            checkoutLink.put("sourceid", "checkout" + brand.getId());
+            checkoutLink.put("targetid", "brand" + brand.getId());
+            checkoutLink.put("uuid", "checkout" + brand.getId() + "-" + "brand" + brand.getId());
+            linkList.add(checkoutLink);
         }
 
         graph.put("nodes", nodeList);

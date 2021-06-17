@@ -45,7 +45,7 @@ public class BrandService implements IBrandService {
         if (privilegeList.isEmpty())
             return "暂无相关信息。";
 
-        String detail = "";
+        StringBuilder detail = new StringBuilder();
 
         boolean isBegin = true;
         for (Privilege privilege : privilegeList) {
@@ -58,12 +58,12 @@ public class BrandService implements IBrandService {
                 res += "赠送" + privilege.getBreakfast() + "份免费早餐。";
             }
             if (!isBegin)
-                detail += "\n";
-            detail += res;
+                detail.append("\n");
+            detail.append(res);
             isBegin = false;
         }
 
-        return detail;
+        return detail.toString();
     }
 
     @Override

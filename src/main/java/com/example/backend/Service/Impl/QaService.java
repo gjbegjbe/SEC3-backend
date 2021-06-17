@@ -263,7 +263,7 @@ public class QaService implements IQaService {
         if (privilegeList.isEmpty() || privilegeList.get(privilegeList.size() - 1).getBreakfast() == 0)
             return brand.getName() + "不提供免费早餐。";
 
-        String res = brand.getName();
+        StringBuilder res = new StringBuilder(brand.getName());
         long lastBreakfastNum = 100;
         for (Privilege privilege : privilegeList) {
             long currBreakfastNum = privilege.getBreakfast();
@@ -271,18 +271,20 @@ public class QaService implements IQaService {
                 continue;
 
             if (currBreakfastNum == lastBreakfastNum)
-                res += vipService.getVipById(privilege.getVid()).getName() + "、";
+                res.append(vipService.getVipById(privilege.getVid()).getName()).append("、");
             else {
-                if (lastBreakfastNum != 100)
-                    res = res.substring(0, res.length() - 1) + "提供" + lastBreakfastNum + "份免费早餐，";
-                res += "对" + vipService.getVipById(privilege.getVid()).getName() + "、";
+                if (lastBreakfastNum != 100) {
+                    res.deleteCharAt(res.length() - 1);
+                    res.append("提供").append(lastBreakfastNum).append("份免费早餐，");
+                }
+                res.append("对").append(vipService.getVipById(privilege.getVid()).getName()).append("、");
                 lastBreakfastNum = currBreakfastNum;
             }
         }
 
-        res = res.substring(0, res.length() - 1);
-        res += "提供" + lastBreakfastNum + "份免费早餐。";
-        return res;
+        res.deleteCharAt(res.length() - 1);
+        res.append("提供").append(lastBreakfastNum).append("份免费早餐。");
+        return res.toString();
     }
 
     @Override
@@ -293,23 +295,25 @@ public class QaService implements IQaService {
         if (privilegeList.isEmpty())
             return "没有找到这个酒店的关于退房时间的信息。";
 
-        String res = brand.getName();
+        StringBuilder res = new StringBuilder(brand.getName());
         String lastCheakout = "00:00";
         for (Privilege privilege : privilegeList) {
             String currCheakout = privilege.getCheckout();
 
             if (currCheakout.equals(lastCheakout))
-                res += vipService.getVipById(privilege.getVid()).getName() + "、";
+                res.append(vipService.getVipById(privilege.getVid()).getName()).append("、");
             else {
-                if (!lastCheakout.equals("00:00"))
-                    res = res.substring(0, res.length() - 1) + "可以延迟到" + lastCheakout + "退房，";
-                res += "对" + vipService.getVipById(privilege.getVid()).getName() + "、";
+                if (!lastCheakout.equals("00:00")) {
+                    res.deleteCharAt(res.length() - 1);
+                    res.append("可以延迟到").append(lastCheakout).append("退房，");
+                }
+                res.append("对").append(vipService.getVipById(privilege.getVid()).getName()).append("、");
                 lastCheakout = currCheakout;
             }
         }
 
-        res = res.substring(0, res.length() - 1);
-        res += "可以延迟到" + lastCheakout + "退房。";
-        return res;
+        res.deleteCharAt(res.length() - 1);
+        res.append("可以延迟到").append(lastCheakout).append("退房。");
+        return res.toString();
     }
 }

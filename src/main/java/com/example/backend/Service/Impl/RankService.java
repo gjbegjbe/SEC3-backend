@@ -3,13 +3,15 @@ package com.example.backend.Service.Impl;
 import com.example.backend.Model.Rank;
 import com.example.backend.Repository.RankRepository;
 import com.example.backend.Service.IRankService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class RankService implements IRankService {
-    @Autowired
-    private RankRepository rankRepository;
+    private final RankRepository rankRepository;
+
+    public RankService(RankRepository rankRepository) {
+        this.rankRepository = rankRepository;
+    }
 
     @Override
     public Rank getRankByNameContains(String name) {

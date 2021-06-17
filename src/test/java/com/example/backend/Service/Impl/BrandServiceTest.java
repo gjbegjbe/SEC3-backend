@@ -30,21 +30,4 @@ public class BrandServiceTest {
         System.out.println(brand.getName());
         assert brand.getName().equals("7天");
     }
-
-    @Test
-    public void getDetailByBrandName1() {
-        String name = "xxxxx";
-        String detail = brandService.getDetailByBrandName(name);
-        assert detail.equals("暂无相关信息。");
-    }
-
-    @Test
-    public void getDetailByBrandName2() {
-        String name = "7天";
-        String detail = brandService.getDetailByBrandName(name);
-        assert !detail.equals("暂无相关信息。");
-        System.out.println(detail);
-
-        assert detail.contains(name);
-    }
 }

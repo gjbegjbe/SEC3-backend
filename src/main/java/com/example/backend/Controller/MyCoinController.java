@@ -5,7 +5,7 @@ import com.example.backend.Model.Group;
 import com.example.backend.Service.IMyCoinService;
 import com.example.backend.Service.Impl.BrandService;
 import com.example.backend.Service.Impl.GroupService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.backend.Service.Impl.QaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +18,20 @@ import java.util.Map;
 @RequestMapping("/api")
 @CrossOrigin
 public class MyCoinController {
-    @Autowired
-    private IMyCoinService myCoinService;
+    private final IMyCoinService myCoinService;
 
-    @Autowired
-    private GroupService groupService;
+    private final GroupService groupService;
 
-    @Autowired
-    private BrandService brandService;
+    private final BrandService brandService;
+
+    private final QaService qaService;
+
+    public MyCoinController(IMyCoinService myCoinService, GroupService groupService, BrandService brandService, QaService qaService) {
+        this.myCoinService = myCoinService;
+        this.groupService = groupService;
+        this.brandService = brandService;
+        this.qaService = qaService;
+    }
 
     @PostMapping("/addGroup")
     public ResponseEntity<Map<String, Object>> addGroup(@Valid @RequestBody Group group) {
@@ -88,7 +94,7 @@ public class MyCoinController {
         String name = (String) body.get("brandName");
         System.out.println("getDetailByBrandName " + name);
         Map<String, Object> response = new HashMap<>();
-        response.put("detail", brandService.getDetailByBrandName(name));
+        response.put("detail", qaService.getDetailByBrandName(name));
         return ResponseEntity.ok().body(response);
     }
 

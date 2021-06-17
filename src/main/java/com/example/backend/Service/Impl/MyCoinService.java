@@ -9,7 +9,6 @@ import com.example.backend.Repository.GroupRepository;
 import com.example.backend.Repository.RankRepository;
 import com.example.backend.Service.IMyCoinService;
 import com.example.backend.Service.SequenceGeneratorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,17 +17,20 @@ import java.util.List;
 
 @Service
 public class MyCoinService implements IMyCoinService {
-    @Autowired
-    private BrandRepository brandRepository;
+    private final BrandRepository brandRepository;
 
-    @Autowired
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    private RankRepository rankRepository;
+    private final RankRepository rankRepository;
 
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
+    private final SequenceGeneratorService sequenceGeneratorService;
+
+    public MyCoinService(GroupRepository groupRepository, BrandRepository brandRepository, RankRepository rankRepository, SequenceGeneratorService sequenceGeneratorService) {
+        this.groupRepository = groupRepository;
+        this.brandRepository = brandRepository;
+        this.rankRepository = rankRepository;
+        this.sequenceGeneratorService = sequenceGeneratorService;
+    }
 
     @Override
     public long addGroup(Group group) {

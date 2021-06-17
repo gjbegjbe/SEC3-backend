@@ -7,7 +7,6 @@ import com.example.backend.Repository.BrandRepository;
 import com.example.backend.Repository.GroupRepository;
 import com.example.backend.Repository.PrivilegeRepository;
 import com.example.backend.Service.IGroupService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,17 +24,17 @@ public class GroupService implements IGroupService {
             "rgb(54,117,23)"
     );
 
-    @Autowired
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    @Autowired
-    private BrandRepository brandRepository;
+    private final BrandRepository brandRepository;
 
-    @Autowired
-    private PrivilegeRepository privilegeRepository;
+    private final PrivilegeRepository privilegeRepository;
 
-    @Autowired
-    private VipService vipService;
+    public GroupService(GroupRepository groupRepository, BrandRepository brandRepository, PrivilegeRepository privilegeRepository) {
+        this.groupRepository = groupRepository;
+        this.brandRepository = brandRepository;
+        this.privilegeRepository = privilegeRepository;
+    }
 
     @Override
     public List<String> getGroupNameList() {

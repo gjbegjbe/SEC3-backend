@@ -4,7 +4,6 @@ import com.example.backend.Model.*;
 import com.example.backend.Repository.BrandRepository;
 import com.example.backend.Repository.PrivilegeRepository;
 import com.example.backend.Service.IQaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,26 +11,29 @@ import java.util.List;
 
 @Service
 public class QaService implements IQaService {
-    @Autowired
-    private GroupService groupService;
+    private final GroupService groupService;
 
-    @Autowired
-    private BrandService brandService;
+    private final BrandService brandService;
 
-    @Autowired
-    private RankService rankService;
+    private final RankService rankService;
 
-    @Autowired
-    private VipService vipService;
+    private final VipService vipService;
 
-    @Autowired
-    private PrivilegeService privilegeService;
+    private final PrivilegeService privilegeService;
 
-    @Autowired
-    private BrandRepository brandRepository;
+    private final BrandRepository brandRepository;
 
-    @Autowired
-    private PrivilegeRepository privilegeRepository;
+    private final PrivilegeRepository privilegeRepository;
+
+    public QaService(GroupService groupService, BrandService brandService, RankService rankService, VipService vipService, PrivilegeService privilegeService, BrandRepository brandRepository, PrivilegeRepository privilegeRepository) {
+        this.groupService = groupService;
+        this.brandService = brandService;
+        this.rankService = rankService;
+        this.vipService = vipService;
+        this.privilegeService = privilegeService;
+        this.brandRepository = brandRepository;
+        this.privilegeRepository = privilegeRepository;
+    }
 
     @Override
     public String getAnswer(int questionIndex, String groupName, String brandName, String rankName, String vipName) {
@@ -315,5 +317,35 @@ public class QaService implements IQaService {
         res.deleteCharAt(res.length() - 1);
         res.append("可以延迟到").append(lastCheckout).append("退房。");
         return res.toString();
+    }
+
+    @Override
+    public String getDetailByBrandName(String name) {
+        Brand brand = brandService.getBrandByNameContains(name);
+        if (brand == null)
+            return "暂无相关信息。";
+        List<Privilege> privilegeList = privilegeRepository.findAllByBidOrderByCheckoutAsc(brand.getId());
+        if (privilegeList.isEmpty())
+            return "暂无相关信息。";
+
+        StringBuilder detail = new StringBuilder();
+
+        boolean isBegin = true;
+        for (Privilege privilege : privilegeList) {
+            String res = getDiscountByBrandAndVipAnswer(brand, vipService.getVipById(privilege.getVid()));
+            res = res.replace('。', '，');
+            res += "最晚" + privilege.getCheckout() + "退房，";
+            if (privilege.getBreakfast() == 0) {
+                res += "无免费早餐赠送。";
+            } else {
+                res += "赠送" + privilege.getBreakfast() + "份免费早餐。";
+            }
+            if (!isBegin)
+                detail.append("\n");
+            detail.append(res);
+            isBegin = false;
+        }
+
+        return detail.toString();
     }
 }

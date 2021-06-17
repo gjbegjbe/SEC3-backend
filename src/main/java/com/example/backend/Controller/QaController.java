@@ -1,7 +1,6 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Service.Impl.QaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import java.util.Map;
 @RequestMapping("/api")
 @CrossOrigin
 public class QaController {
-    @Autowired
-    private QaService qaService;
+    private final QaService qaService;
+
+    public QaController(QaService qaService) {
+        this.qaService = qaService;
+    }
 
     @PostMapping("/getAnswer")
     public ResponseEntity<Map<String, String>> getAnswer(@Valid @RequestBody Map<String, Object> body) {

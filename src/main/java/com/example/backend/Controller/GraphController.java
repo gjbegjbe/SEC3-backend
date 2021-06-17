@@ -2,7 +2,6 @@ package com.example.backend.Controller;
 
 import com.example.backend.Model.Graph;
 import com.example.backend.Service.Impl.GraphService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +14,11 @@ import java.util.Map;
 @CrossOrigin
 public class GraphController {
 
-    @Autowired
-    private GraphService graphService;
+    private final GraphService graphService;
+
+    public GraphController(GraphService graphService) {
+        this.graphService = graphService;
+    }
 
     @GetMapping("/getGraph")
     public ResponseEntity<Graph> getLatestGraph() {

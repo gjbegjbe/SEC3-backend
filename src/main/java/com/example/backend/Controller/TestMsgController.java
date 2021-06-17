@@ -4,7 +4,6 @@ import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Model.TestMsg;
 import com.example.backend.Repository.TestMsgRepository;
 import com.example.backend.Service.SequenceGeneratorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,11 +15,14 @@ import java.util.Map;
 @RestController
 @RequestMapping("/testapi")
 class TestMsgController {
-    @Autowired
-    private TestMsgRepository testMsgRepository;
+    private final TestMsgRepository testMsgRepository;
 
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
+    private final SequenceGeneratorService sequenceGeneratorService;
+
+    public TestMsgController(TestMsgRepository testMsgRepository, SequenceGeneratorService sequenceGeneratorService) {
+        this.testMsgRepository = testMsgRepository;
+        this.sequenceGeneratorService = sequenceGeneratorService;
+    }
 
     @GetMapping("/testmsgs")
     public List<TestMsg> getAllTestMsgs() {

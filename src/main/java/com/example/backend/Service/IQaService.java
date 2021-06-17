@@ -91,4 +91,10 @@ public interface IQaService {
      * @return
      */
     String getCheckoutDetailByBrandAnswer(Brand brand);
+
+    /**
+     * @param name
+     * @return
+     */
+    String getDetailByBrandName(String name);
 }

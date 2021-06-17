@@ -28,14 +28,6 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void getGraphByGroupName4Level() {
-        String name = "锦江国际集团";
-        HashMap<String, Object> res = groupService.getGraphByGroupName4Level(name);
-        assert res.containsKey("nodes");
-        assert res.containsKey("links");
-    }
-
-    @Test
     public void getGraphByGroupName3Level() {
         String name = "锦江国际集团";
         HashMap<String, Object> res = groupService.getGraphByGroupName3Level(name);

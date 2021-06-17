@@ -69,7 +69,7 @@ public class QaService implements IQaService {
         if (questionIndex == 11)
             return getBreakfastDetailByBrandAnswer(brand);
         if (questionIndex == 12)
-            return getCheakoutDetailByBrandAnswer(brand);
+            return getCheckoutDetailByBrandAnswer(brand);
 
 
         return "...";
@@ -288,7 +288,7 @@ public class QaService implements IQaService {
     }
 
     @Override
-    public String getCheakoutDetailByBrandAnswer(Brand brand) {
+    public String getCheckoutDetailByBrandAnswer(Brand brand) {
         if (brand == null)
             return "没有找到这个酒店的信息。";
         List<Privilege> privilegeList = privilegeRepository.findAllByBidOrderByCheckoutAsc(brand.getId());
@@ -296,24 +296,24 @@ public class QaService implements IQaService {
             return "没有找到这个酒店的关于退房时间的信息。";
 
         StringBuilder res = new StringBuilder(brand.getName());
-        String lastCheakout = "00:00";
+        String lastCheckout = "00:00";
         for (Privilege privilege : privilegeList) {
-            String currCheakout = privilege.getCheckout();
+            String currCheckout = privilege.getCheckout();
 
-            if (currCheakout.equals(lastCheakout))
+            if (currCheckout.equals(lastCheckout))
                 res.append(vipService.getVipById(privilege.getVid()).getName()).append("、");
             else {
-                if (!lastCheakout.equals("00:00")) {
+                if (!lastCheckout.equals("00:00")) {
                     res.deleteCharAt(res.length() - 1);
-                    res.append("可以延迟到").append(lastCheakout).append("退房，");
+                    res.append("可以延迟到").append(lastCheckout).append("退房，");
                 }
                 res.append("对").append(vipService.getVipById(privilege.getVid()).getName()).append("、");
-                lastCheakout = currCheakout;
+                lastCheckout = currCheckout;
             }
         }
 
         res.deleteCharAt(res.length() - 1);
-        res.append("可以延迟到").append(lastCheakout).append("退房。");
+        res.append("可以延迟到").append(lastCheckout).append("退房。");
         return res.toString();
     }
 }

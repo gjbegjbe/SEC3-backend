@@ -24,6 +24,8 @@ public class Brand implements Serializable {
 
     private long rid;
 
+    private String imgsrc;
+
     public Brand() {
 
     }
@@ -71,5 +73,13 @@ public class Brand implements Serializable {
 
     public void setRid(long rid) {
         this.rid = rid;
+    }
+
+    public String getImgsrc() {
+        return imgsrc;
+    }
+
+    public void setImgsrc(String imgsrc) {
+        this.imgsrc = imgsrc;
     }
 }

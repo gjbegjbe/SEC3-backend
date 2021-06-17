@@ -65,4 +65,12 @@ public class BrandService implements IBrandService {
 
         return detail;
     }
+
+    @Override
+    public String getLogoUrlByBrandName(String name) {
+        Brand brand = getBrandByNameContains(name);
+        if (brand == null)
+            return "";
+        return brand.getImgsrc();
+    }
 }

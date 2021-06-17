@@ -100,4 +100,12 @@ public class MyCoinController {
         response.put("detail", groupService.getDetailByGroupName(name));
         return ResponseEntity.ok().body(response);
     }
+
+    @PostMapping("/getPicByBrandName")
+    public ResponseEntity<Map<String, Object>> getPicByBrandName(@Valid @RequestBody Map<String, Object> body) {
+        String name = (String) body.get("brandName");
+        Map<String, Object> response = new HashMap<>();
+        response.put("detail", brandService.getLogoUrlByBrandName(name));
+        return ResponseEntity.ok().body(response);
+    }
 }

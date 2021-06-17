@@ -16,4 +16,10 @@ public interface IBrandService {
      * @return
      */
     String getDetailByBrandName(String name);
+
+    /**
+     * @param name
+     * @return
+     */
+    String getLogoUrlByBrandName(String name);
 }

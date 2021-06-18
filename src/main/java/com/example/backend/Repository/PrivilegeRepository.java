@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface PrivilegeRepository extends MongoRepository<Privilege, Long> {
 
-    Privilege findById(long id);
-
     Privilege findByVidAndBid(long vid, long bid);
 
     List<Privilege> findAllByBidOrderByBreakfastAsc(long bid);
@@ -19,5 +17,4 @@ public interface PrivilegeRepository extends MongoRepository<Privilege, Long> {
 
     List<Privilege> findAllByBidOrderByCheckoutAsc(long bid);
 
-    List<Privilege> findAllByBid(long bid);
 }

@@ -98,7 +98,7 @@ public class QaService implements IQaService {
                 subRes = subRes.substring(group.getName().length() + 5);
             res.append(subRes);
         }
-        res = new StringBuilder(res.toString().replaceAll("。", ","));
+        res = new StringBuilder(res.toString().replaceAll("。", "，"));
         res = new StringBuilder(res.substring(0, res.length() - 1) + "。");
         return res.toString();
     }

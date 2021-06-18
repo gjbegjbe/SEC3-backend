@@ -112,7 +112,7 @@ public class QaService implements IQaService {
         if (brand.getGid() == group.getId()) {
             return "是的。";
         } else {
-            return "不是。";
+            return "不是。" + getGroupByBrandAnswer(brand);
         }
     }
 

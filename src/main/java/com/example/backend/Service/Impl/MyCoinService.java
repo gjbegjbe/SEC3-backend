@@ -1,6 +1,5 @@
 package com.example.backend.Service.Impl;
 
-import com.example.backend.Exception.ResourceNotFoundException;
 import com.example.backend.Model.Brand;
 import com.example.backend.Model.Group;
 import com.example.backend.Model.Rank;
@@ -23,55 +22,10 @@ public class MyCoinService implements IMyCoinService {
 
     private final RankRepository rankRepository;
 
-    private final SequenceGeneratorService sequenceGeneratorService;
-
     public MyCoinService(GroupRepository groupRepository, BrandRepository brandRepository, RankRepository rankRepository, SequenceGeneratorService sequenceGeneratorService) {
         this.groupRepository = groupRepository;
         this.brandRepository = brandRepository;
         this.rankRepository = rankRepository;
-        this.sequenceGeneratorService = sequenceGeneratorService;
-    }
-
-    @Override
-    public long addGroup(Group group) {
-        long res = sequenceGeneratorService.generateSequence(Group.SEQUENCE_NAME);
-        group.setId(res);
-        groupRepository.save(group);
-        return res;
-    }
-
-    @Override
-    public boolean deleteGroupById(long groupId) {
-        try {
-            Group resGroup = groupRepository.findById(groupId);
-            groupRepository.delete(resGroup);
-            brandRepository.deleteByGid(groupId);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public long addBrand(Brand brand) {
-        long res = sequenceGeneratorService.generateSequence(Brand.SEQUENCE_NAME);
-        brand.setId(res);
-        brandRepository.save(brand);
-        return res;
-    }
-
-    @Override
-    public boolean deleteBrandById(long brandId) {
-        try {
-            Brand resBrand = brandRepository.findById(brandId)
-                    .orElseThrow(() -> new ResourceNotFoundException("Brand not found for this id : " + brandId));
-            brandRepository.delete(resBrand);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     @Override

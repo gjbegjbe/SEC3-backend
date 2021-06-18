@@ -1,7 +1,5 @@
 package com.example.backend.Controller;
 
-import com.example.backend.Model.Brand;
-import com.example.backend.Model.Group;
 import com.example.backend.Service.IMyCoinService;
 import com.example.backend.Service.Impl.BrandService;
 import com.example.backend.Service.Impl.GroupService;
@@ -31,44 +29,6 @@ public class MyCoinController {
         this.groupService = groupService;
         this.brandService = brandService;
         this.qaService = qaService;
-    }
-
-    @PostMapping("/addGroup")
-    public ResponseEntity<Map<String, Object>> addGroup(@Valid @RequestBody Group group) {
-        long id = myCoinService.addGroup(group);
-        String uuid = "group" + id;
-        Map<String, Object> response = new HashMap<>();
-        response.put("uuid", uuid);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @PostMapping("/deleteGroupByUuid")
-    public ResponseEntity<Map<String, Boolean>> deleteGroupByUuid(@Valid @RequestBody Map<String, Object> body) {
-        String uuid = (String) body.get("uuid");
-        long id = Long.parseLong(uuid.substring(5));
-        boolean res = myCoinService.deleteGroupById(id);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", res);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @PostMapping("/addBrand")
-    public ResponseEntity<Map<String, Object>> addBrand(@Valid @RequestBody Brand brand) {
-        long id = myCoinService.addBrand(brand);
-        String uuid = "brand" + id;
-        Map<String, Object> response = new HashMap<>();
-        response.put("uuid", uuid);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @PostMapping("/deleteBrandByUuid")
-    public ResponseEntity<Map<String, Boolean>> deleteBrandByUuid(@Valid @RequestBody Map<String, Object> body) {
-        String uuid = (String) body.get("uuid");
-        long id = Long.parseLong(uuid.substring(5));
-        boolean res = myCoinService.deleteBrandById(id);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", res);
-        return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/getCoin")
